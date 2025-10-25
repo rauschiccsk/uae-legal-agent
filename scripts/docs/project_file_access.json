@@ -1,0 +1,32 @@
+{
+  "project": "uae-legal-agent",
+  "repository": "https://github.com/rauschiccsk/uae-legal-agent",
+  "description": "AI-powered legal analysis system for UAE law",
+  "files": {
+    "documentation": {
+      "init_context": "https://raw.githubusercontent.com/rauschiccsk/uae-legal-agent/main/docs/INIT_CONTEXT.md",
+      "readme": "https://raw.githubusercontent.com/rauschiccsk/uae-legal-agent/main/README.md",
+      "latest_session": "https://raw.githubusercontent.com/rauschiccsk/uae-legal-agent/main/docs/sessions/2025-10-25_session.md"
+    },
+    "source_code": {
+      "claude_client": "https://raw.githubusercontent.com/rauschiccsk/uae-legal-agent/main/src/core/claude_client.py",
+      "config": "https://raw.githubusercontent.com/rauschiccsk/uae-legal-agent/main/src/core/config.py",
+      "api_main": "https://raw.githubusercontent.com/rauschiccsk/uae-legal-agent/main/src/api/main.py"
+    },
+    "tests": {
+      "api_test": "https://raw.githubusercontent.com/rauschiccsk/uae-legal-agent/main/tests/test_claude_api.py"
+    },
+    "configuration": {
+      "requirements_minimal": "https://raw.githubusercontent.com/rauschiccsk/uae-legal-agent/main/requirements-minimal.txt",
+      "requirements_ultraminimal": "https://raw.githubusercontent.com/rauschiccsk/uae-legal-agent/main/requirements-ultraminimal.txt",
+      "env_example": "https://raw.githubusercontent.com/rauschiccsk/uae-legal-agent/main/.env.example"
+    }
+  },
+  "quick_load": {
+    "description": "Paste these two URLs to Claude for full project context",
+    "urls": [
+      "https://raw.githubusercontent.com/rauschiccsk/uae-legal-agent/main/docs/INIT_CONTEXT.md",
+      "https://raw.githubusercontent.com/rauschiccsk/uae-legal-agent/main/docs/project_file_access.json"
+    ]
+  }
+}
