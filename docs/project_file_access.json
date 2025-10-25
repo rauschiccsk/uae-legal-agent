@@ -1,0 +1,213 @@
+{
+  "project_name": "uae-legal-agent",
+  "description": "AI-powered legal analysis system for UAE law - Unified file access manifest",
+  "repository": "https://github.com/rauschiccsk/uae-legal-agent",
+  "generated_at": "2025-10-25T22:28:06.990887",
+  "cache_version": "20251025-222806",
+  "base_url": "https://raw.githubusercontent.com/rauschiccsk/uae-legal-agent/main",
+  "quick_access": {
+    "context_files": [
+      {
+        "name": "INIT_CONTEXT.md",
+        "description": "Complete project context - load this first",
+        "url": "https://raw.githubusercontent.com/rauschiccsk/uae-legal-agent/main/docs/INIT_CONTEXT.md?v=20251025-222806"
+      },
+      {
+        "name": "SYSTEM_PROMPT.md",
+        "description": "Claude instructions and workflow rules",
+        "url": "https://raw.githubusercontent.com/rauschiccsk/uae-legal-agent/main/docs/SYSTEM_PROMPT.md?v=20251025-222806"
+      },
+      {
+        "name": "MASTER_CONTEXT.md",
+        "description": "Quick reference guide",
+        "url": "https://raw.githubusercontent.com/rauschiccsk/uae-legal-agent/main/docs/MASTER_CONTEXT.md?v=20251025-222806"
+      }
+    ],
+    "latest_session": {
+      "name": "2025-10-25_session.md",
+      "description": "Most recent development session",
+      "url": "https://raw.githubusercontent.com/rauschiccsk/uae-legal-agent/main/docs/sessions/2025-10-25_session.md?v=20251025-222806"
+    },
+    "core_modules": [
+      {
+        "name": "claude_client.py",
+        "description": "Claude API wrapper for legal analysis",
+        "url": "https://raw.githubusercontent.com/rauschiccsk/uae-legal-agent/main/src/core/claude_client.py?v=20251025-222806"
+      },
+      {
+        "name": "config.py",
+        "description": "Configuration management",
+        "url": "https://raw.githubusercontent.com/rauschiccsk/uae-legal-agent/main/src/core/config.py?v=20251025-222806"
+      }
+    ]
+  },
+  "categories": [
+    "documentation",
+    "python_sources",
+    "tests",
+    "configuration",
+    "data_structure"
+  ],
+  "category_descriptions": {
+    "documentation": "Project documentation and guides",
+    "python_sources": "Python source code modules",
+    "tests": "Test suite and fixtures",
+    "configuration": "Configuration files and templates",
+    "data_structure": "Data directories structure (UAE laws, cases)"
+  },
+  "statistics": {
+    "total_files": 17,
+    "by_category": {
+      "documentation": 5,
+      "python_sources": 6,
+      "tests": 3,
+      "configuration": 3,
+      "data_structure": 0
+    },
+    "generated_by": "generate_project_access.py"
+  },
+  "files": [
+    {
+      "path": "docs/GITHUB_SETUP.md",
+      "raw_url": "https://raw.githubusercontent.com/rauschiccsk/uae-legal-agent/main/docs/GITHUB_SETUP.md?v=20251025-222806",
+      "size": 13474,
+      "extension": ".md",
+      "name": "GITHUB_SETUP.md",
+      "category": "documentation"
+    },
+    {
+      "path": "docs/INIT_CONTEXT.md",
+      "raw_url": "https://raw.githubusercontent.com/rauschiccsk/uae-legal-agent/main/docs/INIT_CONTEXT.md?v=20251025-222806",
+      "size": 959,
+      "extension": ".md",
+      "name": "INIT_CONTEXT.md",
+      "category": "documentation"
+    },
+    {
+      "path": "docs/MASTER_CONTEXT.md",
+      "raw_url": "https://raw.githubusercontent.com/rauschiccsk/uae-legal-agent/main/docs/MASTER_CONTEXT.md?v=20251025-222806",
+      "size": 6144,
+      "extension": ".md",
+      "name": "MASTER_CONTEXT.md",
+      "category": "documentation"
+    },
+    {
+      "path": "docs/SYSTEM_PROMPT.md",
+      "raw_url": "https://raw.githubusercontent.com/rauschiccsk/uae-legal-agent/main/docs/SYSTEM_PROMPT.md?v=20251025-222806",
+      "size": 10471,
+      "extension": ".md",
+      "name": "SYSTEM_PROMPT.md",
+      "category": "documentation"
+    },
+    {
+      "path": "docs/sessions/2025-10-25_session.md",
+      "raw_url": "https://raw.githubusercontent.com/rauschiccsk/uae-legal-agent/main/docs/sessions/2025-10-25_session.md?v=20251025-222806",
+      "size": 20297,
+      "extension": ".md",
+      "name": "2025-10-25_session.md",
+      "category": "documentation"
+    },
+    {
+      "path": "requirements-minimal.txt",
+      "raw_url": "https://raw.githubusercontent.com/rauschiccsk/uae-legal-agent/main/requirements-minimal.txt?v=20251025-222806",
+      "size": 703,
+      "extension": ".txt",
+      "name": "requirements-minimal.txt",
+      "category": "configuration"
+    },
+    {
+      "path": "requirements-ultraminimal.txt",
+      "raw_url": "https://raw.githubusercontent.com/rauschiccsk/uae-legal-agent/main/requirements-ultraminimal.txt?v=20251025-222806",
+      "size": 457,
+      "extension": ".txt",
+      "name": "requirements-ultraminimal.txt",
+      "category": "configuration"
+    },
+    {
+      "path": "requirements.txt",
+      "raw_url": "https://raw.githubusercontent.com/rauschiccsk/uae-legal-agent/main/requirements.txt?v=20251025-222806",
+      "size": 515,
+      "extension": ".txt",
+      "name": "requirements.txt",
+      "category": "configuration"
+    },
+    {
+      "path": "src/__init__.py",
+      "raw_url": "https://raw.githubusercontent.com/rauschiccsk/uae-legal-agent/main/src/__init__.py?v=20251025-222806",
+      "size": 85,
+      "extension": ".py",
+      "name": "__init__.py",
+      "category": "python_sources"
+    },
+    {
+      "path": "src/api/__init__.py",
+      "raw_url": "https://raw.githubusercontent.com/rauschiccsk/uae-legal-agent/main/src/api/__init__.py?v=20251025-222806",
+      "size": 0,
+      "extension": ".py",
+      "name": "__init__.py",
+      "category": "python_sources"
+    },
+    {
+      "path": "src/api/main.py",
+      "raw_url": "https://raw.githubusercontent.com/rauschiccsk/uae-legal-agent/main/src/api/main.py?v=20251025-222806",
+      "size": 770,
+      "extension": ".py",
+      "name": "main.py",
+      "category": "python_sources"
+    },
+    {
+      "path": "src/core/__init__.py",
+      "raw_url": "https://raw.githubusercontent.com/rauschiccsk/uae-legal-agent/main/src/core/__init__.py?v=20251025-222806",
+      "size": 0,
+      "extension": ".py",
+      "name": "__init__.py",
+      "category": "python_sources"
+    },
+    {
+      "path": "src/core/claude_client.py",
+      "raw_url": "https://raw.githubusercontent.com/rauschiccsk/uae-legal-agent/main/src/core/claude_client.py?v=20251025-222806",
+      "size": 3106,
+      "extension": ".py",
+      "name": "claude_client.py",
+      "category": "python_sources"
+    },
+    {
+      "path": "src/core/config.py",
+      "raw_url": "https://raw.githubusercontent.com/rauschiccsk/uae-legal-agent/main/src/core/config.py?v=20251025-222806",
+      "size": 1141,
+      "extension": ".py",
+      "name": "config.py",
+      "category": "python_sources"
+    },
+    {
+      "path": "tests/__init__.py",
+      "raw_url": "https://raw.githubusercontent.com/rauschiccsk/uae-legal-agent/main/tests/__init__.py?v=20251025-222806",
+      "size": 0,
+      "extension": ".py",
+      "name": "__init__.py",
+      "category": "tests"
+    },
+    {
+      "path": "tests/debug_api_test.py",
+      "raw_url": "https://raw.githubusercontent.com/rauschiccsk/uae-legal-agent/main/tests/debug_api_test.py?v=20251025-222806",
+      "size": 0,
+      "extension": ".py",
+      "name": "debug_api_test.py",
+      "category": "tests"
+    },
+    {
+      "path": "tests/test_claude_api.py",
+      "raw_url": "https://raw.githubusercontent.com/rauschiccsk/uae-legal-agent/main/tests/test_claude_api.py?v=20251025-222806",
+      "size": 2123,
+      "extension": ".py",
+      "name": "test_claude_api.py",
+      "category": "tests"
+    }
+  ],
+  "usage_instructions": {
+    "step_1": "Load INIT_CONTEXT.md first for complete project overview",
+    "step_2": "Load this manifest for access to all project files",
+    "step_3": "Access individual files using raw_url with cache version",
+    "note": "Always regenerate manifest after pushing changes to get fresh cache version"
+  }
+}
