@@ -57,6 +57,18 @@ uae-legal-agent/
 **Progress:** 100%
 
 **Completed Tasks:**
+- ✅ Project structure created
+- ✅ Claude API integration & testing
+- ✅ Basic configuration management
+- ✅ Token tracking & cost calculation
+- ✅ Git repository initialized
+- ✅ Documentation framework
+- ✅ **Development Agent implemented** 🤖
+- ✅ **n8n workflow created** 🔄
+- ✅ **Automatic code generation + Git integration** 🚀
+**Progress:** 100%
+
+**Completed Tasks:**
 - ✅ Project structure created (25 directories, 15 files)
 - ✅ Python virtual environment setup
 - ✅ Claude API integration & testing
@@ -144,6 +156,72 @@ https://raw.githubusercontent.com/rauschiccsk/uae-legal-agent/main/docs/project_
 - Progress tracking per phase
 - Token usage logging
 - Decision documentation
+
+
+## 🤖 Development Agent (NEW!)
+
+### Automatic Development with Claude API + n8n
+
+UAE Legal Agent má vlastný **AI Development Agent** pre automatizáciu vývoja:
+
+```
+Prompt → Claude API → Code Generation → Auto-Save → Git Commit → Push → Done!
+```
+
+**Key Features:**
+- ✅ Automatic code generation via Claude API
+- ✅ Smart file path detection
+- ✅ Auto-save to project files
+- ✅ Automatic git add + commit + push
+- ✅ n8n workflow integration
+- ✅ Slack notifications
+- ✅ Persistent conversation history (no 40k token reload!)
+- ✅ Per-file token & cost tracking
+
+**Components:**
+1. **Python Agent:** `scripts/dev_agent.py`
+   - Claude API client
+   - Code block parser
+   - File system operations
+   - Git integration (GitPython)
+   - SQLite conversation history
+
+2. **n8n Workflow:** `scripts/n8n_dev_agent_workflow.json`
+   - Webhook trigger
+   - Python executor
+   - Response formatter
+   - Slack notifications
+
+3. **Documentation:** `docs/DEV_AGENT_SETUP.md`
+   - Complete setup guide
+   - Configuration examples
+   - Troubleshooting
+
+**Usage:**
+
+Terminal:
+```bash
+python scripts/dev_agent.py --project uae-legal-agent --prompt "Create src/rag/vector_store.py" --auto-commit
+```
+
+Webhook (n8n):
+```bash
+curl -X POST http://localhost:5678/webhook/dev-agent   -d '{"prompt": "Create embeddings.py", "auto_commit": true}'
+```
+
+Slack (after setup):
+```
+/dev Create src/utils/helper.py with utility functions
+```
+
+**Cost Savings:**
+- Chat Interface: 800k tokens (20 chats × 40k reload)
+- Dev Agent: 42k tokens (1× load + 20 responses)
+- **Savings: 95%** 🎉
+
+**For complete setup instructions, see:** `docs/DEV_AGENT_SETUP.md`
+
+---
 
 ## 🚀 Getting Started
 
