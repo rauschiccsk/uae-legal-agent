@@ -1,13 +1,11 @@
-"""
-FastAPI Application - UAE Legal Agent
-"""
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from src.api.endpoints import legal_analysis
 
 app = FastAPI(
     title="UAE Legal Agent API",
-    description="AI-powered legal analysis system for UAE law",
-    version="1.0.0"
+    description="AI-powered legal analysis for UAE law",
+    version="0.1.0"
 )
 
 # CORS
@@ -19,19 +17,14 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+# Include routers
+app.include_router(legal_analysis.router)
+
+
 @app.get("/")
 async def root():
     return {
         "message": "UAE Legal Agent API",
-        "version": "1.0.0",
-        "status": "running"
+        "version": "0.1.0",
+        "docs": "/docs"
     }
-
-@app.get("/health")
-async def health():
-    return {"status": "healthy"}
-
-
-if __name__ == "__main__":
-    import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8002)
