@@ -8,7 +8,7 @@ class Settings(BaseSettings):
     """Centralized application settings."""
 
     # Application
-    app_name: str = Field(default="MyApp", description="Application name")
+    app_name: str = Field(default="UAE Legal Agent", description="Application name")
     app_env: str = Field(default="development", description="Environment: development, staging, production")
     debug: bool = Field(default=False, description="Debug mode")
 
@@ -44,6 +44,23 @@ class Settings(BaseSettings):
     max_upload_size: int = Field(default=10485760, description="Max upload size in bytes (10MB)")
     upload_dir: str = Field(default="./uploads", description="Upload directory")
 
+    # Claude API Settings
+    anthropic_api_key: str = Field(default="", description="Anthropic API key for Claude")
+    claude_model: str = Field(default="claude-3-5-sonnet-20241022", description="Claude model to use")
+    claude_max_tokens: int = Field(default=4096, description="Maximum tokens for Claude response")
+    claude_temperature: float = Field(default=0.7, description="Claude temperature (0.0-1.0)")
+
+    # Document Processing
+    data_dir: str = Field(default="./data", description="Directory for legal documents")
+    vector_store_path: str = Field(default="./vector_store", description="Path for vector store")
+    chunk_size: int = Field(default=1000, description="Document chunk size for processing")
+    chunk_overlap: int = Field(default=200, description="Overlap between document chunks")
+
+    # RAG Settings
+    embedding_model: str = Field(default="text-embedding-3-small", description="Embedding model for RAG")
+    top_k_results: int = Field(default=5, description="Number of top results to retrieve")
+    similarity_threshold: float = Field(default=0.7, description="Minimum similarity score for results")
+
     model_config = SettingsConfigDict(
         env_file=".env",
         env_file_encoding="utf-8",
@@ -76,6 +93,22 @@ class Settings(BaseSettings):
         """Validate port range."""
         if not 1 <= v <= 65535:
             raise ValueError("api_port must be between 1 and 65535")
+        return v
+
+    @field_validator("claude_temperature")
+    @classmethod
+    def validate_temperature(cls, v):
+        """Validate Claude temperature range."""
+        if not 0.0 <= v <= 1.0:
+            raise ValueError("claude_temperature must be between 0.0 and 1.0")
+        return v
+
+    @field_validator("similarity_threshold")
+    @classmethod
+    def validate_similarity(cls, v):
+        """Validate similarity threshold range."""
+        if not 0.0 <= v <= 1.0:
+            raise ValueError("similarity_threshold must be between 0.0 and 1.0")
         return v
 
     def is_production(self) -> bool:
