@@ -1,168 +1,91 @@
-"""Configuration management for UAE Legal Agent.
-
-This module provides configuration management using Pydantic for validation
-and python-dotenv for environment variable loading.
-"""
-
-import os
-from pathlib import Path
+"""Configuration management module using Pydantic BaseSettings."""
 from typing import Optional
-
+from pydantic_settings import BaseSettings, SettingsConfigDict
 from pydantic import Field, field_validator
-from pydantic_settings import BaseSettings
 
 
-class Config(BaseSettings):
-    """Application configuration with validation.
-    
-    Loads configuration from environment variables with optional .env file support.
-    All settings have sensible defaults for development.
-    """
-    
-    # API Configuration
-    anthropic_api_key: str = Field(
-        ...,
-        description="Anthropic API key for Claude access"
+class Settings(BaseSettings):
+    """Centralized application settings."""
+
+    # Application
+    app_name: str = Field(default="MyApp", description="Application name")
+    app_env: str = Field(default="development", description="Environment: development, staging, production")
+    debug: bool = Field(default=False, description="Debug mode")
+
+    # API
+    api_host: str = Field(default="0.0.0.0", description="API host")
+    api_port: int = Field(default=8000, description="API port")
+    api_prefix: str = Field(default="/api/v1", description="API prefix")
+
+    # Database
+    database_url: str = Field(default="sqlite:///./app.db", description="Database connection URL")
+    db_echo: bool = Field(default=False, description="Echo SQL queries")
+    db_pool_size: int = Field(default=5, description="Database connection pool size")
+    db_max_overflow: int = Field(default=10, description="Max overflow connections")
+
+    # Security
+    secret_key: str = Field(default="changeme", description="Secret key for encryption")
+    jwt_algorithm: str = Field(default="HS256", description="JWT algorithm")
+    access_token_expire_minutes: int = Field(default=30, description="Access token expiration")
+
+    # Redis
+    redis_url: Optional[str] = Field(default=None, description="Redis connection URL")
+    redis_ttl: int = Field(default=3600, description="Redis cache TTL in seconds")
+
+    # Logging
+    log_level: str = Field(default="INFO", description="Logging level")
+    log_format: str = Field(default="json", description="Log format: json or text")
+
+    # CORS
+    cors_origins: list[str] = Field(default=["*"], description="Allowed CORS origins")
+    cors_allow_credentials: bool = Field(default=True, description="Allow credentials")
+
+    # File Upload
+    max_upload_size: int = Field(default=10485760, description="Max upload size in bytes (10MB)")
+    upload_dir: str = Field(default="./uploads", description="Upload directory")
+
+    model_config = SettingsConfigDict(
+        env_file=".env",
+        env_file_encoding="utf-8",
+        case_sensitive=False,
+        extra="ignore"
     )
-    
-    claude_model: str = Field(
-        default="claude-3-5-sonnet-20241022",
-        description="Claude model identifier to use"
-    )
-    
-    # Application Settings
-    debug: bool = Field(
-        default=False,
-        description="Enable debug mode for verbose logging"
-    )
-    
-    # Directory Configuration
-    data_dir: Path = Field(
-        default=Path("./data"),
-        description="Directory containing legal documents"
-    )
-    
-    vector_store_path: Path = Field(
-        default=Path("./vector_store"),
-        description="Path to vector store directory"
-    )
-    
-    # RAG Configuration
-    chunk_size: int = Field(
-        default=1000,
-        ge=100,
-        le=10000,
-        description="Size of text chunks for document processing"
-    )
-    
-    chunk_overlap: int = Field(
-        default=200,
-        ge=0,
-        le=1000,
-        description="Overlap between consecutive chunks"
-    )
-    
-    top_k_results: int = Field(
-        default=5,
-        ge=1,
-        le=20,
-        description="Number of top results to retrieve from vector search"
-    )
-    
-    @field_validator("anthropic_api_key")
+
+    @field_validator("app_env")
     @classmethod
-    def validate_api_key(cls, v: str) -> str:
-        """Validate that API key is not empty."""
-        if not v or not v.strip():
-            raise ValueError("ANTHROPIC_API_KEY cannot be empty")
-        return v.strip()
-    
-    @field_validator("claude_model")
-    @classmethod
-    def validate_model(cls, v: str) -> str:
-        """Validate Claude model identifier format."""
-        if not v.startswith("claude-"):
-            raise ValueError("Model must start with 'claude-'")
+    def validate_env(cls, v):
+        """Validate environment value."""
+        allowed = ["development", "staging", "production"]
+        if v not in allowed:
+            raise ValueError(f"app_env must be one of {allowed}")
         return v
-    
-    @field_validator("chunk_overlap")
+
+    @field_validator("log_level")
     @classmethod
-    def validate_chunk_overlap(cls, v: int, info) -> int:
-        """Ensure chunk overlap is less than chunk size."""
-        chunk_size = info.data.get("chunk_size", 1000)
-        if v >= chunk_size:
-            raise ValueError("chunk_overlap must be less than chunk_size")
+    def validate_log_level(cls, v):
+        """Validate log level."""
+        allowed = ["DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL"]
+        v_upper = v.upper()
+        if v_upper not in allowed:
+            raise ValueError(f"log_level must be one of {allowed}")
+        return v_upper
+
+    @field_validator("api_port")
+    @classmethod
+    def validate_port(cls, v):
+        """Validate port range."""
+        if not 1 <= v <= 65535:
+            raise ValueError("api_port must be between 1 and 65535")
         return v
-    
-    @field_validator("data_dir", "vector_store_path")
-    @classmethod
-    def validate_path(cls, v: Path) -> Path:
-        """Ensure paths are absolute and create if needed."""
-        path = Path(v).resolve()
-        path.mkdir(parents=True, exist_ok=True)
-        return path
-    
-    class Config:
-        """Pydantic configuration."""
-        env_file = ".env"
-        env_file_encoding = "utf-8"
-        case_sensitive = False
-        extra = "ignore"
-    
-    def __str__(self) -> str:
-        """String representation (hides API key)."""
-        return (
-            f"Config(model={self.claude_model}, "
-            f"debug={self.debug}, "
-            f"data_dir={self.data_dir}, "
-            f"api_key={'*' * 8})"
-        )
+
+    def is_production(self) -> bool:
+        """Check if running in production."""
+        return self.app_env == "production"
+
+    def is_development(self) -> bool:
+        """Check if running in development."""
+        return self.app_env == "development"
 
 
-def load_config(env_file: Optional[str] = None) -> Config:
-    """Load configuration from environment variables.
-    
-    Args:
-        env_file: Optional path to .env file. If None, uses default .env
-        
-    Returns:
-        Validated Config instance
-        
-    Raises:
-        ValidationError: If configuration is invalid
-    """
-    if env_file:
-        return Config(_env_file=env_file)
-    return Config()
-
-
-# Global config instance (lazy loaded)
-_config: Optional[Config] = None
-
-
-def get_config() -> Config:
-    """Get global configuration instance (singleton pattern).
-    
-    Returns:
-        Config: Application configuration
-    """
-    global _config
-    if _config is None:
-        _config = load_config()
-    return _config
-
-
-def reload_config(env_file: Optional[str] = None) -> Config:
-    """Reload configuration from environment.
-    
-    Useful for testing or when environment changes.
-    
-    Args:
-        env_file: Optional path to .env file
-        
-    Returns:
-        New Config instance
-    """
-    global _config
-    _config = load_config(env_file)
-    return _config
+# Global settings instance
+settings = Settings()
