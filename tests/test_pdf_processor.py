@@ -3,7 +3,7 @@
 import pytest
 from pathlib import Path
 from unittest.mock import Mock, MagicMock, patch, mock_open
-import PyPDF2.errors
+import pypdf.errors
 
 from utils.pdf_processor import (
     extract_text_from_pdf,
@@ -120,7 +120,7 @@ def mock_structured_pdf_reader():
 
 def test_extract_text_from_pdf_valid(sample_pdf_path, mock_pdf_reader):
     """Test extracting text from valid PDF file."""
-    with patch('utils.pdf_processor.PyPDF2.PdfReader', return_value=mock_pdf_reader):
+    with patch('utils.pdf_processor.pypdf.PdfReader', return_value=mock_pdf_reader):
         with patch('builtins.open', mock_open(read_data=b'pdf_content')):
             result = extract_text_from_pdf(sample_pdf_path)
             
@@ -132,7 +132,7 @@ def test_extract_text_from_pdf_valid(sample_pdf_path, mock_pdf_reader):
 
 def test_extract_text_from_pdf_empty(sample_pdf_path, mock_empty_pdf_reader):
     """Test extracting text from PDF with empty content."""
-    with patch('utils.pdf_processor.PyPDF2.PdfReader', return_value=mock_empty_pdf_reader):
+    with patch('utils.pdf_processor.pypdf.PdfReader', return_value=mock_empty_pdf_reader):
         with patch('builtins.open', mock_open(read_data=b'pdf_content')):
             result = extract_text_from_pdf(sample_pdf_path)
             
@@ -152,8 +152,8 @@ def test_extract_text_from_pdf_missing_file():
 
 def test_extract_text_from_pdf_invalid_format(sample_pdf_path):
     """Test extraction fails with ValueError for corrupted PDF."""
-    with patch('utils.pdf_processor.PyPDF2.PdfReader') as mock_reader:
-        mock_reader.side_effect = PyPDF2.errors.PdfReadError("Invalid PDF")
+    with patch('utils.pdf_processor.pypdf.PdfReader') as mock_reader:
+        mock_reader.side_effect = pypdf.errors.PdfReadError("Invalid PDF")
         
         with patch('builtins.open', mock_open(read_data=b'invalid_content')):
             with pytest.raises(ValueError) as exc_info:
@@ -168,7 +168,7 @@ def test_extract_text_from_pdf_invalid_format(sample_pdf_path):
 
 def test_extract_pdf_metadata_valid(sample_pdf_path, mock_pdf_reader):
     """Test extracting metadata from valid PDF."""
-    with patch('utils.pdf_processor.PyPDF2.PdfReader', return_value=mock_pdf_reader):
+    with patch('utils.pdf_processor.pypdf.PdfReader', return_value=mock_pdf_reader):
         with patch('builtins.open', mock_open(read_data=b'pdf_content')):
             result = extract_pdf_metadata(sample_pdf_path)
             
@@ -182,7 +182,7 @@ def test_extract_pdf_metadata_valid(sample_pdf_path, mock_pdf_reader):
 
 def test_extract_pdf_metadata_no_metadata(sample_pdf_path, mock_empty_pdf_reader):
     """Test extracting metadata from PDF with no metadata."""
-    with patch('utils.pdf_processor.PyPDF2.PdfReader', return_value=mock_empty_pdf_reader):
+    with patch('utils.pdf_processor.pypdf.PdfReader', return_value=mock_empty_pdf_reader):
         with patch('builtins.open', mock_open(read_data=b'pdf_content')):
             result = extract_pdf_metadata(sample_pdf_path)
             
@@ -209,7 +209,7 @@ def test_extract_pdf_metadata_missing_file():
 
 def test_extract_structured_content_articles(sample_pdf_path, mock_structured_pdf_reader):
     """Test extraction of articles from structured content."""
-    with patch('utils.pdf_processor.PyPDF2.PdfReader', return_value=mock_structured_pdf_reader):
+    with patch('utils.pdf_processor.pypdf.PdfReader', return_value=mock_structured_pdf_reader):
         with patch('builtins.open', mock_open(read_data=b'pdf_content')):
             result = extract_structured_content(sample_pdf_path)
             
@@ -224,7 +224,7 @@ def test_extract_structured_content_articles(sample_pdf_path, mock_structured_pd
 
 def test_extract_structured_content_sections(sample_pdf_path, mock_structured_pdf_reader):
     """Test extraction of sections from structured content."""
-    with patch('utils.pdf_processor.PyPDF2.PdfReader', return_value=mock_structured_pdf_reader):
+    with patch('utils.pdf_processor.pypdf.PdfReader', return_value=mock_structured_pdf_reader):
         with patch('builtins.open', mock_open(read_data=b'pdf_content')):
             result = extract_structured_content(sample_pdf_path)
             
@@ -237,7 +237,7 @@ def test_extract_structured_content_sections(sample_pdf_path, mock_structured_pd
 
 def test_extract_structured_content_numbering(sample_pdf_path, mock_structured_pdf_reader):
     """Test correct numbering extraction for clauses and paragraphs."""
-    with patch('utils.pdf_processor.PyPDF2.PdfReader', return_value=mock_structured_pdf_reader):
+    with patch('utils.pdf_processor.pypdf.PdfReader', return_value=mock_structured_pdf_reader):
         with patch('builtins.open', mock_open(read_data=b'pdf_content')):
             result = extract_structured_content(sample_pdf_path)
             
@@ -252,7 +252,7 @@ def test_extract_structured_content_numbering(sample_pdf_path, mock_structured_p
 
 def test_extract_structured_content_empty(sample_pdf_path, mock_empty_pdf_reader):
     """Test structured content extraction from empty PDF."""
-    with patch('utils.pdf_processor.PyPDF2.PdfReader', return_value=mock_empty_pdf_reader):
+    with patch('utils.pdf_processor.pypdf.PdfReader', return_value=mock_empty_pdf_reader):
         with patch('builtins.open', mock_open(read_data=b'pdf_content')):
             result = extract_structured_content(sample_pdf_path)
             
@@ -270,7 +270,7 @@ def test_extract_structured_content_empty(sample_pdf_path, mock_empty_pdf_reader
 
 def test_process_legal_pdf_complete(sample_pdf_path, mock_structured_pdf_reader):
     """Test complete processing of legal PDF with all components."""
-    with patch('utils.pdf_processor.PyPDF2.PdfReader', return_value=mock_structured_pdf_reader):
+    with patch('utils.pdf_processor.pypdf.PdfReader', return_value=mock_structured_pdf_reader):
         with patch('builtins.open', mock_open(read_data=b'pdf_content')):
             result = process_legal_pdf(sample_pdf_path)
             
@@ -304,7 +304,7 @@ def test_process_legal_pdf_with_errors(sample_pdf_path):
 
 def test_process_legal_pdf_arabic_text(sample_pdf_path, mock_arabic_pdf_reader):
     """Test processing PDF with Arabic text content."""
-    with patch('utils.pdf_processor.PyPDF2.PdfReader', return_value=mock_arabic_pdf_reader):
+    with patch('utils.pdf_processor.pypdf.PdfReader', return_value=mock_arabic_pdf_reader):
         with patch('builtins.open', mock_open(read_data=b'pdf_content')):
             result = process_legal_pdf(sample_pdf_path)
             
@@ -320,8 +320,8 @@ def test_process_legal_pdf_arabic_text(sample_pdf_path, mock_arabic_pdf_reader):
 
 def test_corrupted_pdf_handling(sample_pdf_path):
     """Test handling of corrupted PDF files."""
-    with patch('utils.pdf_processor.PyPDF2.PdfReader') as mock_reader:
-        mock_reader.side_effect = PyPDF2.errors.PdfReadError("Corrupted PDF")
+    with patch('utils.pdf_processor.pypdf.PdfReader') as mock_reader:
+        mock_reader.side_effect = pypdf.errors.PdfReadError("Corrupted PDF")
         
         with patch('builtins.open', mock_open(read_data=b'corrupted')):
             with pytest.raises(ValueError) as exc_info:
@@ -346,8 +346,8 @@ def test_invalid_file_type(tmp_path):
     text_file = tmp_path / "document.txt"
     text_file.write_text("This is not a PDF")
     
-    with patch('utils.pdf_processor.PyPDF2.PdfReader') as mock_reader:
-        mock_reader.side_effect = PyPDF2.errors.PdfReadError("Not a PDF")
+    with patch('utils.pdf_processor.pypdf.PdfReader') as mock_reader:
+        mock_reader.side_effect = pypdf.errors.PdfReadError("Not a PDF")
         
         with pytest.raises(ValueError) as exc_info:
             extract_text_from_pdf(str(text_file))
@@ -361,7 +361,7 @@ def test_invalid_file_type(tmp_path):
 
 def test_arabic_text_extraction(sample_pdf_path, mock_arabic_pdf_reader):
     """Test extraction of Arabic text with proper UTF-8 encoding."""
-    with patch('utils.pdf_processor.PyPDF2.PdfReader', return_value=mock_arabic_pdf_reader):
+    with patch('utils.pdf_processor.pypdf.PdfReader', return_value=mock_arabic_pdf_reader):
         with patch('builtins.open', mock_open(read_data=b'pdf_content')):
             result = extract_text_from_pdf(sample_pdf_path)
             
@@ -373,7 +373,7 @@ def test_arabic_text_extraction(sample_pdf_path, mock_arabic_pdf_reader):
 
 def test_mixed_english_arabic(sample_pdf_path, mock_arabic_pdf_reader):
     """Test extraction of mixed English and Arabic text."""
-    with patch('utils.pdf_processor.PyPDF2.PdfReader', return_value=mock_arabic_pdf_reader):
+    with patch('utils.pdf_processor.pypdf.PdfReader', return_value=mock_arabic_pdf_reader):
         with patch('builtins.open', mock_open(read_data=b'pdf_content')):
             result = extract_text_from_pdf(sample_pdf_path)
             
