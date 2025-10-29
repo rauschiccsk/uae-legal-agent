@@ -3,6 +3,7 @@
 import pytest
 from pathlib import Path
 from unittest.mock import Mock, MagicMock, patch, mock_open
+import pypdf
 import pypdf.errors as PyPDF2
 
 from utils.pdf_processor import (
