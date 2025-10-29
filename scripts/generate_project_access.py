@@ -15,7 +15,7 @@ PROJECT_NAME = "uae-legal-agent"
 BASE_URL = "https://raw.githubusercontent.com/rauschiccsk/uae-legal-agent/main"
 OUTPUT_FILE = "docs/project_file_access.json"
 
-# Categories to scan
+# Categories to scan - FIXED
 CATEGORIES = {
     "documentation": {
         "description": "Project documentation and guides",
@@ -26,10 +26,18 @@ CATEGORIES = {
     },
     "python_sources": {
         "description": "Python source code modules",
-        "directories": ["src"],
+        "directories": ["utils", "scripts"],  # FIXED: Added utils
         "extensions": [".py"],
         "recursive": True,
         "exclude_dirs": ["__pycache__", ".pytest_cache"]
+    },
+    "root_modules": {
+        "description": "Root-level Python modules",
+        "directories": ["."],
+        "extensions": [".py"],
+        "recursive": False,
+        "exclude_dirs": [],
+        "include_patterns": ["config", "main"]  # Only config.py and main.py
     },
     "tests": {
         "description": "Test suite and fixtures",
@@ -41,17 +49,17 @@ CATEGORIES = {
     "configuration": {
         "description": "Configuration files and templates",
         "directories": [".", "config"],
-        "extensions": [".txt", ".yaml", ".yml", ".example"],
+        "extensions": [".txt", ".yaml", ".yml", ".example", ".ini"],
         "recursive": False,
         "exclude_dirs": [],
-        "include_patterns": ["requirements", ".env", "config"]
+        "include_patterns": ["requirements", ".env", "pytest"]
     },
     "data_structure": {
         "description": "Data directories structure (UAE laws, cases)",
         "directories": ["data"],
-        "extensions": [".md", ".json"],
+        "extensions": [".md", ".json", ".txt"],
         "recursive": True,
-        "exclude_dirs": ["embeddings", "__pycache__"]
+        "exclude_dirs": ["embeddings", "__pycache__", "chroma_db"]
     }
 }
 
@@ -72,7 +80,9 @@ def should_skip(path):
         ".DS_Store",
         "logs",
         ".env",  # Never include actual .env!
-        "*.log"
+        "*.log",
+        "*.db",
+        "dev_chat_history.db"
     ]
 
     path_str = str(path)
@@ -141,7 +151,7 @@ def scan_category(category_name, config, base_path, version_param):
 def generate_manifest():
     """Generate unified project file access manifest"""
     print("=" * 70)
-    print("🏛️  UAE Legal Agent - Project File Access Manifest Generator")
+    print("🛠️  UAE Legal Agent - Project File Access Manifest Generator")
     print("=" * 70)
 
     # Get project root
@@ -160,7 +170,7 @@ def generate_manifest():
     category_stats = {}
 
     for category_name, category_config in CATEGORIES.items():
-        print(f"\n🔍 Scanning: {category_name}")
+        print(f"\n📂 Scanning: {category_name}")
         print(f"   Description: {category_config['description']}")
         print(f"   Directories: {', '.join(category_config['directories'])}")
         print(f"   Extensions: {', '.join(category_config['extensions'])}")
@@ -174,7 +184,7 @@ def generate_manifest():
     # Sort files by path
     all_files.sort(key=lambda x: x["path"])
 
-    # Create quick access section for most important files
+    # Create quick access section - FIXED URLs
     quick_access = {
         "context_files": [
             {
@@ -193,21 +203,26 @@ def generate_manifest():
                 "url": f"{BASE_URL}/docs/MASTER_CONTEXT.md?v={version_param}"
             }
         ],
-        "latest_session": {
-            "name": "2025-10-25_session.md",
-            "description": "Most recent development session",
-            "url": f"{BASE_URL}/docs/sessions/2025-10-25_session.md?v={version_param}"
-        },
         "core_modules": [
             {
-                "name": "claude_client.py",
-                "description": "Claude API wrapper for legal analysis",
-                "url": f"{BASE_URL}/src/core/claude_client.py?v={version_param}"
+                "name": "config.py",
+                "description": "Project configuration (root)",
+                "url": f"{BASE_URL}/config.py?v={version_param}"
             },
             {
-                "name": "config.py",
-                "description": "Configuration management",
-                "url": f"{BASE_URL}/src/core/config.py?v={version_param}"
+                "name": "main.py",
+                "description": "CLI entry point (root)",
+                "url": f"{BASE_URL}/main.py?v={version_param}"
+            },
+            {
+                "name": "utils/claude_client.py",
+                "description": "Claude API wrapper",
+                "url": f"{BASE_URL}/utils/claude_client.py?v={version_param}"
+            },
+            {
+                "name": "utils/vector_store.py",
+                "description": "Vector database interface",
+                "url": f"{BASE_URL}/utils/vector_store.py?v={version_param}"
             }
         ]
     }
@@ -263,15 +278,15 @@ def generate_manifest():
 
     print("\n💡 Usage in Claude:")
     print("   Paste these TWO URLs to load complete project:")
-    print(f"   1. {BASE_URL}/docs/INIT_CONTEXT.md?v={version_param}")
-    print(f"   2. {BASE_URL}/docs/project_file_access.json?v={version_param}")
+    print(f"   1. {BASE_URL}/docs/INIT_CONTEXT.md")
+    print(f"   2. {BASE_URL}/docs/project_file_access.json")
 
     print("\n⚠️  IMPORTANT:")
     print("   After pushing ANY changes to GitHub:")
     print("   1. Run this script again: python scripts/generate_project_access.py")
     print("   2. Commit updated manifest")
     print("   3. Push to GitHub")
-    print("   4. Use NEW cache version in Claude")
+    print("   4. Use NEW URLs in Claude (without cache param for latest)")
 
     return manifest
 
@@ -283,5 +298,4 @@ if __name__ == "__main__":
     except Exception as e:
         print(f"\n❌ Error: {e}")
         import traceback
-
         traceback.print_exc()
