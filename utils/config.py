@@ -44,6 +44,10 @@ class Settings(BaseSettings):
     max_upload_size: int = Field(default=10485760, description="Max upload size in bytes (10MB)")
     upload_dir: str = Field(default="./uploads", description="Upload directory")
 
+    # Anthropic API
+    anthropic_api_key: Optional[str] = Field(default=None, description="Anthropic API key")
+    claude_model: str = Field(default="claude-3-5-sonnet-20241022", description="Claude model to use")
+
     model_config = SettingsConfigDict(
         env_file=".env",
         env_file_encoding="utf-8",
