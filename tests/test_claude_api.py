@@ -164,7 +164,7 @@ def test_analyze_legal_case_empty_context(client, mock_anthropic_response):
 def test_analyze_legal_case_api_error(client):
     """Test handlovania API error."""
     client.client.messages.create = Mock(
-        side_effect=APIError("API Error", response=Mock(status_code=400), body={})
+        side_effect=APIError("API Error")
     )
     
     with pytest.raises(APIError):
@@ -271,7 +271,7 @@ def test_call_claude_api_retry_on_error(client, mock_anthropic_response):
     """Test retry mechaniky pri connection error."""
     client.client.messages.create = Mock(
         side_effect=[
-            APIConnectionError("Connection failed"),
+            APIConnectionError(),
             mock_anthropic_response
         ]
     )
@@ -289,7 +289,7 @@ def test_call_claude_api_retry_on_error(client, mock_anthropic_response):
 def test_call_claude_api_max_retries_exceeded(client):
     """Test že po max retries sa vyhodí exception."""
     client.client.messages.create = Mock(
-        side_effect=APIConnectionError("Connection failed")
+        side_effect=APIConnectionError()
     )
     
     with patch('time.sleep'):
