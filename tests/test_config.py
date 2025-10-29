@@ -10,7 +10,7 @@ class TestSettings:
     
     def test_default_values(self):
         """Test default configuration values."""
-        settings = Settings()
+        settings = Settings(_env_file=None)  # Ignore .env file for default values test
         
         assert settings.app_name == "MyApp"
         assert settings.app_env == "development"
