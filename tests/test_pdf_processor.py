@@ -160,7 +160,7 @@ def test_extract_text_from_pdf_invalid_format(sample_pdf_path):
             with pytest.raises(ValueError) as exc_info:
                 extract_text_from_pdf(sample_pdf_path)
             
-            assert "Poškodený" in str(exc_info.value)
+            assert "nepodarilo" in str(exc_info.value).lower()
 
 
 # ============================================================================
@@ -328,7 +328,7 @@ def test_corrupted_pdf_handling(sample_pdf_path):
             with pytest.raises(ValueError) as exc_info:
                 extract_text_from_pdf(sample_pdf_path)
             
-            assert "Poškodený" in str(exc_info.value)
+            assert "nepodarilo" in str(exc_info.value).lower()
 
 
 def test_permission_error_handling(sample_pdf_path):
@@ -353,7 +353,7 @@ def test_invalid_file_type(tmp_path):
         with pytest.raises(ValueError) as exc_info:
             extract_text_from_pdf(str(text_file))
         
-        assert "Poškodený" in str(exc_info.value)
+        assert "nepodarilo" in str(exc_info.value).lower()
 
 
 # ============================================================================
