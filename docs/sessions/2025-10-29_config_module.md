@@ -130,9 +130,9 @@ pytest tests/test_config.py -v
 ```
 
 2. **Choose next module:**
-   - PDF Processor (recommended)
-   - Vector DB
-   - Claude API Wrapper
+- PDF Processor (recommended)
+- Vector DB
+- Claude API Wrapper
 
 ---
 
@@ -182,7 +182,7 @@ Stav:
 ✅ logger, text_processing - tested
 🔄 config - created, needs testing
 
-Task: Test config module
+Task: Test config module.
 ```
 
 ---
