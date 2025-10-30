@@ -15,10 +15,6 @@ class Settings(BaseSettings):
     CLAUDE_MAX_TOKENS: int = 4096
     CLAUDE_TEMPERATURE: float = 0.7
     
-    # OpenAI API Settings
-    OPENAI_API_KEY: str
-    OPENAI_MODEL: str = "gpt-4"
-    
     # ChromaDB Settings
     CHROMA_PERSIST_DIRECTORY: str = "data/chroma_db"
     CHROMA_COLLECTION_NAME: str = "uae_legal_docs"
