@@ -1,0 +1,188 @@
+# Task Template for uae-legal-agent
+# Use this template when creating new tasks for AI agents
+# Fill in all required fields and remove comments before submitting
+
+# ==============================================================================
+# TASK METADATA
+# ==============================================================================
+
+task_id: "TASK-YYYY-MM-DD-NNN"  # Format: TASK-2025-01-30-001
+created: "YYYY-MM-DD HH:MM:SS"  # ISO format timestamp
+priority: "high"  # Options: critical, high, medium, low
+status: "pending"  # Options: pending, in_progress, completed, blocked
+assigned_to: "agent_name"  # Which AI agent should handle this
+
+# ==============================================================================
+# TASK DESCRIPTION
+# ==============================================================================
+
+title: "Brief descriptive title of the task"
+
+description: |
+  Clear, detailed description of what needs to be done.
+  
+  Include:
+  - What is the goal?
+  - Why is this needed?
+  - What is the context?
+  
+  Be specific and provide enough detail for the agent to understand
+  the full scope without requiring additional clarification.
+
+# ==============================================================================
+# TASK CLASSIFICATION
+# ==============================================================================
+
+type: "implementation"  # Options: implementation, documentation, fix, test, refactor
+
+category: "feature"  # Options: feature, bugfix, maintenance, enhancement, cleanup
+
+tags:
+  - "relevant"
+  - "keywords"
+  - "for_search"
+
+# ==============================================================================
+# TARGET FILES
+# ==============================================================================
+
+# List all files that will be created, modified, or deleted
+
+files:
+  create:
+    - path: "path/to/new_file.py"
+      reason: "Why this file needs to be created"
+  
+  modify:
+    - path: "path/to/existing_file.py"
+      reason: "What changes and why"
+      sections:
+        - "Specific function or class to modify"
+  
+  delete:
+    - path: "path/to/obsolete_file.py"
+      reason: "Why this file should be removed"
+
+# ==============================================================================
+# IMPLEMENTATION DETAILS
+# ==============================================================================
+
+requirements:
+  # Technical requirements
+  - "Requirement 1: Specific technical need"
+  - "Requirement 2: Another requirement"
+  
+  # Functional requirements
+  - "Must handle X scenario"
+  - "Should support Y feature"
+
+constraints:
+  # Limitations or restrictions
+  - "Must maintain backward compatibility"
+  - "Cannot modify existing API"
+  - "Must use existing dependencies"
+
+dependencies:
+  # Other tasks that must be completed first
+  blocked_by:
+    - "TASK-2025-01-29-005"
+  
+  # Other tasks that depend on this
+  blocks:
+    - "TASK-2025-01-31-012"
+  
+  # Related tasks
+  related:
+    - "TASK-2025-01-30-008"
+
+# ==============================================================================
+# ACCEPTANCE CRITERIA
+# ==============================================================================
+
+acceptance_criteria:
+  # Clear, testable criteria for task completion
+  - criteria: "All new functions have docstrings"
+    test: "Run docstring checker"
+  
+  - criteria: "Code passes existing tests"
+    test: "pytest shows 100% pass rate"
+  
+  - criteria: "New feature works as specified"
+    test: "Manual verification of X behavior"
+
+# ==============================================================================
+# TESTING
+# ==============================================================================
+
+testing:
+  unit_tests:
+    - "Test case 1: Description"
+    - "Test case 2: Description"
+  
+  integration_tests:
+    - "Integration scenario 1"
+  
+  manual_tests:
+    - "Manual verification step 1"
+    - "Manual verification step 2"
+
+# ==============================================================================
+# DOCUMENTATION
+# ==============================================================================
+
+documentation:
+  update_readme: true  # true/false
+  
+  update_docs:
+    - "docs/file_to_update.md"
+  
+  new_docs:
+    - path: "docs/new_guide.md"
+      content: "What should be documented"
+  
+  code_comments:
+    - "Add docstrings to all public functions"
+    - "Update inline comments for complex logic"
+
+# ==============================================================================
+# ROLLBACK PLAN
+# ==============================================================================
+
+rollback:
+  # How to undo changes if something goes wrong
+  steps:
+    - "Step 1: Revert file X to previous version"
+    - "Step 2: Remove new directory Y"
+  
+  backup_required:
+    - "path/to/critical_file.py"
+
+# ==============================================================================
+# NOTES & REFERENCES
+# ==============================================================================
+
+notes: |
+  Additional information, context, or reminders.
+  
+  - Important consideration 1
+  - Edge case to watch out for
+  - Performance implications
+
+references:
+  # Links to relevant documentation, issues, or discussions
+  - url: "https://docs.example.com/relevant-doc"
+    description: "Official documentation for feature X"
+  
+  - url: "https://github.com/repo/issues/123"
+    description: "Related GitHub issue"
+
+# ==============================================================================
+# COMPLETION
+# ==============================================================================
+
+completed_at: null  # Will be filled when task is done
+completed_by: null  # Agent that completed the task
+
+outcome: null  # Success, partial, or failed
+
+completion_notes: null  # Any notes about the completion
