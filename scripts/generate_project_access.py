@@ -60,7 +60,14 @@ CATEGORIES = {
         "extensions": [".md", ".json", ".txt"],
         "recursive": True,
         "exclude_dirs": ["embeddings", "__pycache__", "chroma_db"]
-    }
+    },
+    "templates": {
+        "description": "Project templates and standards",
+        "directories": ["docs/templates"],
+        "extensions": [".yaml", ".yml", ".md", ".txt"],
+        "recursive": True,
+        "exclude_dirs": []
+    },
 }
 
 
