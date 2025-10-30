@@ -29,25 +29,24 @@ class TestEmbeddingManagerInitialization:
         assert manager.model_name == custom_model
         assert manager.model is not None
     
-    def test_lazy_loading_model_property(self):
+    @patch('utils.embeddings.OpenAI')
+    def test_lazy_loading_model_property(self, mock_openai):
         """Test that model is loaded immediately on initialization"""
-        with patch('utils.embeddings.SentenceTransformer') as mock_transformer:
-            mock_model = Mock()
-            mock_model.get_sentence_embedding_dimension.return_value = 384
-            mock_transformer.return_value = mock_model
-            
-            manager = EmbeddingManager()
-            
-            # Verify model was loaded during __init__
-            mock_transformer.assert_called_once()
-            assert manager.model == mock_model
+        mock_client = Mock()
+        mock_openai.return_value = mock_client
+        
+        manager = EmbeddingManager()
+        
+        # Verify model was loaded during __init__
+        mock_openai.assert_called_once()
+        assert manager.model == mock_client
     
     def test_embedding_dimension_set_correctly(self):
         """Test that embedding dimension is captured during initialization"""
         manager = EmbeddingManager()
         
-        # Default multilingual model should have 384 dimensions
-        assert manager.embedding_dimension == 384
+        # Default multilingual model should have 1536 dimensions
+        assert manager.embedding_dimension == 1536
         assert isinstance(manager.embedding_dimension, int)
 
 
@@ -110,23 +109,22 @@ class TestGenerateEmbeddings:
             for j in range(manager.embedding_dimension):
                 assert abs(embeddings1[i][j] - embeddings2[i][j]) < 1e-5
     
-    @patch('utils.embeddings.SentenceTransformer')
-    def test_generate_embeddings_calls_encode_correctly(self, mock_transformer):
+    @patch('utils.embeddings.OpenAI')
+    def test_generate_embeddings_calls_encode_correctly(self, mock_openai):
         """Test that encode is called with correct parameters"""
-        mock_model = Mock()
-        mock_model.get_sentence_embedding_dimension.return_value = 384
-        mock_model.encode.return_value = [[0.1] * 384, [0.2] * 384]
-        mock_transformer.return_value = mock_model
+        mock_client = Mock()
+        mock_response = Mock()
+        mock_response.data = [Mock(embedding=[0.1] * 1536), Mock(embedding=[0.2] * 1536)]
+        mock_client.embeddings.create.return_value = mock_response
+        mock_openai.return_value = mock_client
         
         manager = EmbeddingManager()
         texts = ["Text 1", "Text 2"]
         manager.generate_embeddings(texts)
         
-        mock_model.encode.assert_called_once_with(
-            texts,
-            convert_to_numpy=True,
-            show_progress_bar=True,
-            batch_size=32
+        mock_client.embeddings.create.assert_called_once_with(
+            input=texts,
+            model="text-embedding-3-small"
         )
 
 
@@ -169,21 +167,21 @@ class TestGenerateQueryEmbedding:
         for i in range(len(embedding1)):
             assert abs(embedding1[i] - embedding2[i]) < 1e-5
     
-    @patch('utils.embeddings.SentenceTransformer')
-    def test_generate_query_embedding_no_progress_bar(self, mock_transformer):
+    @patch('utils.embeddings.OpenAI')
+    def test_generate_query_embedding_no_progress_bar(self, mock_openai):
         """Test that query embedding doesn't show progress bar"""
-        mock_model = Mock()
-        mock_model.get_sentence_embedding_dimension.return_value = 384
-        mock_model.encode.return_value = [0.1] * 384
-        mock_transformer.return_value = mock_model
+        mock_client = Mock()
+        mock_response = Mock()
+        mock_response.data = [Mock(embedding=[0.1] * 1536)]
+        mock_client.embeddings.create.return_value = mock_response
+        mock_openai.return_value = mock_client
         
         manager = EmbeddingManager()
         manager.generate_query_embedding("test query")
         
-        mock_model.encode.assert_called_once_with(
-            "test query",
-            convert_to_numpy=True,
-            show_progress_bar=False
+        mock_client.embeddings.create.assert_called_once_with(
+            input="test query",
+            model="text-embedding-3-small"
         )
 
 
@@ -489,21 +487,21 @@ class TestBatchProcessingEfficiency:
             for j in range(manager.embedding_dimension):
                 assert abs(batch_embeddings[i][j] - individual_embeddings[i][j]) < 1e-4
     
-    @patch('utils.embeddings.SentenceTransformer')
-    def test_batch_size_parameter_used(self, mock_transformer):
+    @patch('utils.embeddings.OpenAI')
+    def test_batch_size_parameter_used(self, mock_openai):
         """Test that batch_size parameter is passed correctly"""
-        mock_model = Mock()
-        mock_model.get_sentence_embedding_dimension.return_value = 384
-        mock_model.encode.return_value = [[0.1] * 384] * 5
-        mock_transformer.return_value = mock_model
+        mock_client = Mock()
+        mock_response = Mock()
+        mock_response.data = [Mock(embedding=[0.1] * 1536)] * 5
+        mock_client.embeddings.create.return_value = mock_response
+        mock_openai.return_value = mock_client
         
         manager = EmbeddingManager()
         texts = ["Text"] * 5
         manager.generate_embeddings(texts)
         
-        # Verify batch_size=32 was passed
-        call_kwargs = mock_model.encode.call_args[1]
-        assert call_kwargs['batch_size'] == 32
+        # Verify OpenAI API was called
+        mock_client.embeddings.create.assert_called_once()
 
 
 # Fixtures for common test data
