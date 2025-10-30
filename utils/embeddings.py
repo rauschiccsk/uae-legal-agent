@@ -1,34 +1,48 @@
 """
 Embedding Manager Module
-Generates text embeddings using OpenAI API for RAG pipeline.
+Generates text embeddings using SentenceTransformer for RAG pipeline.
 Supports multilingual embeddings (Arabic/English/Slovak).
-Uses text-embedding-3-small model (1536 dimensions, cost-effective).
-Resolves 32-bit Python compatibility issue (torch not available for 32-bit).
+Uses paraphrase-multilingual-MiniLM-L12-v2 model with lazy loading.
 """
 
-from typing import List, Union
+from typing import List, Union, Optional
 import numpy as np
-from openai import OpenAI
-from config import settings
 
 
 class EmbeddingManager:
     """
     Manages text embeddings generation for the RAG pipeline.
-    Uses OpenAI text-embedding-3-small model for multilingual support.
+    Uses SentenceTransformer with multilingual support.
+    Implements lazy loading of the model.
     """
     
-    def __init__(self, model_name: str = "text-embedding-3-small"):
+    def __init__(self, model_name: str = "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2"):
         """
-        Initialize the embedding manager with OpenAI API.
+        Initialize the embedding manager with SentenceTransformer.
         
         Args:
-            model_name: Name of the OpenAI embedding model to use.
-                       Default uses text-embedding-3-small (1536 dimensions).
+            model_name: Name of the SentenceTransformer model to use.
+                       Default uses paraphrase-multilingual-MiniLM-L12-v2.
         """
         self.model_name = model_name
-        self.client = OpenAI(api_key=settings.openai_api_key)
-        self.embedding_dimension = 1536  # text-embedding-3-small dimension
+        self._model: Optional['SentenceTransformer'] = None
+        self.embedding_dimension = 384  # paraphrase-multilingual-MiniLM-L12-v2 dimension
+    
+    @property
+    def model(self):
+        """
+        Lazy loading property for the SentenceTransformer model.
+        Model is only loaded when first accessed.
+        
+        Returns:
+            Loaded SentenceTransformer model instance
+        """
+        if self._model is None:
+            from sentence_transformers import SentenceTransformer
+            self._model = SentenceTransformer(self.model_name)
+            # Update embedding dimension from actual model
+            self.embedding_dimension = self._model.get_sentence_embedding_dimension()
+        return self._model
     
     def generate_embeddings(self, texts: List[str]) -> np.ndarray:
         """
@@ -46,14 +60,12 @@ class EmbeddingManager:
         if not texts:
             raise ValueError("Cannot generate embeddings for empty text list")
         
-        # Generate embeddings using OpenAI API
-        response = self.client.embeddings.create(
-            model=self.model_name,
-            input=texts
+        # Generate embeddings using SentenceTransformer
+        embeddings = self.model.encode(
+            texts,
+            convert_to_numpy=True,
+            show_progress_bar=False
         )
-        
-        # Extract embeddings from response
-        embeddings = np.array([item.embedding for item in response.data])
         
         return embeddings
     
@@ -73,13 +85,12 @@ class EmbeddingManager:
         if not query or not query.strip():
             raise ValueError("Cannot generate embedding for empty query")
         
-        # Generate single embedding using OpenAI API
-        response = self.client.embeddings.create(
-            model=self.model_name,
-            input=query
+        # Generate single embedding using SentenceTransformer
+        embedding = self.model.encode(
+            query,
+            convert_to_numpy=True,
+            show_progress_bar=False
         )
-        
-        embedding = np.array(response.data[0].embedding)
         
         return embedding
     
@@ -102,6 +113,6 @@ class EmbeddingManager:
         return {
             "model_name": self.model_name,
             "embedding_dimension": self.embedding_dimension,
-            "max_sequence_length": 8191,  # text-embedding-3-small max tokens
-            "supports_languages": ["Arabic", "English", "Slovak", "100+ others"]
+            "max_sequence_length": 128,  # paraphrase-multilingual-MiniLM-L12-v2 max tokens
+            "supports_languages": ["Arabic", "English", "Slovak", "50+ others"]
         }
