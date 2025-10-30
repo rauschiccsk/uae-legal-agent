@@ -148,6 +148,19 @@ def scan_category(category_name, config, base_path, version_param):
     return files
 
 
+def print_usage_urls(version_param):
+    """Print ready-to-use URLs for next Claude chat"""
+    print("\n" + "=" * 70)
+    print("📋 COPY THESE URLs FOR NEXT CLAUDE CHAT")
+    print("=" * 70)
+    print("\n🔗 Paste both URLs at the start of new conversation:\n")
+    print(f"{BASE_URL}/docs/INIT_CONTEXT.md")
+    print(f"{BASE_URL}/docs/project_file_access.json?v={version_param}")
+    print("\n" + "=" * 70)
+    print("💡 TIP: Cache parameter (?v=...) ensures fresh content from GitHub")
+    print("=" * 70)
+
+
 def generate_manifest():
     """Generate unified project file access manifest"""
     print("=" * 70)
@@ -263,7 +276,7 @@ def generate_manifest():
         json.dump(manifest, f, indent=2, ensure_ascii=False)
 
     print("\n" + "=" * 70)
-    print("✅ Manifest Generated Successfully!")
+    print("✅ MANIFEST GENERATED SUCCESSFULLY")
     print("=" * 70)
     print(f"\n📄 Output: {output_path}")
     print(f"📊 Total files: {len(all_files)}")
@@ -272,21 +285,13 @@ def generate_manifest():
     for category, count in category_stats.items():
         print(f"   • {category}: {count} files")
 
-    print(f"\n🔗 GitHub URLs:")
-    print(f"   Manifest: {BASE_URL}/docs/project_file_access.json?v={version_param}")
-    print(f"   Context:  {BASE_URL}/docs/INIT_CONTEXT.md?v={version_param}")
+    # Print ready-to-use URLs
+    print_usage_urls(version_param)
 
-    print("\n💡 Usage in Claude:")
-    print("   Paste these TWO URLs to load complete project:")
-    print(f"   1. {BASE_URL}/docs/INIT_CONTEXT.md")
-    print(f"   2. {BASE_URL}/docs/project_file_access.json")
-
-    print("\n⚠️  IMPORTANT:")
-    print("   After pushing ANY changes to GitHub:")
-    print("   1. Run this script again: python scripts/generate_project_access.py")
-    print("   2. Commit updated manifest")
-    print("   3. Push to GitHub")
-    print("   4. Use NEW URLs in Claude (without cache param for latest)")
+    print("\n⚠️  NEXT STEPS:")
+    print("   1. Commit updated manifest: git add docs/project_file_access.json")
+    print("   2. Push to GitHub: git push")
+    print("   3. Use URLs above in next Claude chat (they include fresh cache version)")
 
     return manifest
 
