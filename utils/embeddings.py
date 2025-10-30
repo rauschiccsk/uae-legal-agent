@@ -1,32 +1,34 @@
 """
 Embedding Manager Module
-Generates text embeddings using sentence-transformers for RAG pipeline.
+Generates text embeddings using OpenAI API for RAG pipeline.
 Supports multilingual embeddings (Arabic/English/Slovak).
+Uses text-embedding-3-small model (1536 dimensions, cost-effective).
+Resolves 32-bit Python compatibility issue (torch not available for 32-bit).
 """
 
 from typing import List, Union
 import numpy as np
-from sentence_transformers import SentenceTransformer
+from openai import OpenAI
+from config import settings
 
 
 class EmbeddingManager:
     """
     Manages text embeddings generation for the RAG pipeline.
-    Supports multilingual embeddings for Arabic, English, and Slovak.
+    Uses OpenAI text-embedding-3-small model for multilingual support.
     """
     
-    def __init__(self, model_name: str = "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2"):
+    def __init__(self, model_name: str = "text-embedding-3-small"):
         """
-        Initialize the embedding manager with a multilingual model.
+        Initialize the embedding manager with OpenAI API.
         
         Args:
-            model_name: Name of the sentence-transformer model to use.
-                       Default uses multilingual model supporting 50+ languages
-                       including Arabic, English, and Slovak.
+            model_name: Name of the OpenAI embedding model to use.
+                       Default uses text-embedding-3-small (1536 dimensions).
         """
         self.model_name = model_name
-        self.model = SentenceTransformer(model_name)
-        self.embedding_dimension = self.model.get_sentence_embedding_dimension()
+        self.client = OpenAI(api_key=settings.openai_api_key)
+        self.embedding_dimension = 1536  # text-embedding-3-small dimension
     
     def generate_embeddings(self, texts: List[str]) -> np.ndarray:
         """
@@ -44,13 +46,14 @@ class EmbeddingManager:
         if not texts:
             raise ValueError("Cannot generate embeddings for empty text list")
         
-        # Generate embeddings
-        embeddings = self.model.encode(
-            texts,
-            convert_to_numpy=True,
-            show_progress_bar=True,
-            batch_size=32
+        # Generate embeddings using OpenAI API
+        response = self.client.embeddings.create(
+            model=self.model_name,
+            input=texts
         )
+        
+        # Extract embeddings from response
+        embeddings = np.array([item.embedding for item in response.data])
         
         return embeddings
     
@@ -70,12 +73,13 @@ class EmbeddingManager:
         if not query or not query.strip():
             raise ValueError("Cannot generate embedding for empty query")
         
-        # Generate single embedding
-        embedding = self.model.encode(
-            query,
-            convert_to_numpy=True,
-            show_progress_bar=False
+        # Generate single embedding using OpenAI API
+        response = self.client.embeddings.create(
+            model=self.model_name,
+            input=query
         )
+        
+        embedding = np.array(response.data[0].embedding)
         
         return embedding
     
@@ -98,6 +102,6 @@ class EmbeddingManager:
         return {
             "model_name": self.model_name,
             "embedding_dimension": self.embedding_dimension,
-            "max_sequence_length": self.model.max_seq_length,
-            "supports_languages": ["Arabic", "English", "Slovak", "50+ others"]
+            "max_sequence_length": 8191,  # text-embedding-3-small max tokens
+            "supports_languages": ["Arabic", "English", "Slovak", "100+ others"]
         }
