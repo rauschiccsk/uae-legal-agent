@@ -1,118 +1,109 @@
-"""
-Embedding Manager Module
-Generates text embeddings using SentenceTransformer for RAG pipeline.
-Supports multilingual embeddings (Arabic/English/Slovak).
-Uses paraphrase-multilingual-MiniLM-L12-v2 model with lazy loading.
-"""
+"""Text embedding generation using OpenAI API."""
 
-from typing import List, Union, Optional
-import numpy as np
+from openai import OpenAI
+from typing import List, Optional
+from utils.logger import logger
+from utils.config import settings
 
 
 class EmbeddingManager:
-    """
-    Manages text embeddings generation for the RAG pipeline.
-    Uses SentenceTransformer with multilingual support.
-    Implements lazy loading of the model.
-    """
-    
-    def __init__(self, model_name: str = "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2"):
+    """Manager pre generovanie text embeddings pomocou OpenAI API."""
+
+    def __init__(self, model_name: str = "text-embedding-3-small"):
         """
-        Initialize the embedding manager with SentenceTransformer.
-        
+        Inicializácia embedding managera.
+
         Args:
-            model_name: Name of the SentenceTransformer model to use.
-                       Default uses paraphrase-multilingual-MiniLM-L12-v2.
+            model_name: Názov OpenAI embedding modelu
         """
         self.model_name = model_name
-        self._model: Optional['SentenceTransformer'] = None
-        self.embedding_dimension = 384  # paraphrase-multilingual-MiniLM-L12-v2 dimension
-    
+        self._client = None
+        logger.info(f"EmbeddingManager inicializovaný s modelom: {self.model_name}")
+
     @property
-    def model(self):
+    def client(self) -> OpenAI:
+        """Lazy loading OpenAI klienta - vytvorí sa pri prvom použití."""
+        if self._client is None:
+            logger.info("Inicializujem OpenAI klienta")
+            self._client = OpenAI(api_key=settings.openai_api_key)
+            logger.info("OpenAI klient úspešne inicializovaný")
+        return self._client
+
+    def generate_embeddings(self, texts: List[str], batch_size: int = 32) -> List[List[float]]:
         """
-        Lazy loading property for the SentenceTransformer model.
-        Model is only loaded when first accessed.
-        
-        Returns:
-            Loaded SentenceTransformer model instance
-        """
-        if self._model is None:
-            from sentence_transformers import SentenceTransformer
-            self._model = SentenceTransformer(self.model_name)
-            # Update embedding dimension from actual model
-            self.embedding_dimension = self._model.get_sentence_embedding_dimension()
-        return self._model
-    
-    def generate_embeddings(self, texts: List[str]) -> np.ndarray:
-        """
-        Generate embeddings for a list of text chunks.
-        
+        Generuje embeddings pre zoznam textov.
+
         Args:
-            texts: List of text strings to embed
-            
+            texts: Zoznam textov na embedding
+            batch_size: Veľkosť batch pre spracovanie
+
         Returns:
-            numpy array of shape (len(texts), embedding_dimension)
-            
-        Raises:
-            ValueError: If texts list is empty
+            Zoznam embedding vektorov (normalizované pre cosine similarity)
         """
         if not texts:
-            raise ValueError("Cannot generate embeddings for empty text list")
-        
-        # Generate embeddings using SentenceTransformer
-        embeddings = self.model.encode(
-            texts,
-            convert_to_numpy=True,
-            show_progress_bar=False
-        )
-        
-        return embeddings
-    
-    def generate_query_embedding(self, query: str) -> np.ndarray:
+            logger.warning("Prázdny zoznam textov pre embedding")
+            return []
+
+        logger.info(f"Generujem embeddings pre {len(texts)} textov (batch_size={batch_size})")
+
+        try:
+            all_embeddings = []
+            
+            # Spracovanie v batch-och
+            for i in range(0, len(texts), batch_size):
+                batch = texts[i:i + batch_size]
+                
+                response = self.client.embeddings.create(
+                    model=self.model_name,
+                    input=batch
+                )
+                
+                batch_embeddings = [item.embedding for item in response.data]
+                all_embeddings.extend(batch_embeddings)
+                
+                logger.info(f"Spracovaný batch {i//batch_size + 1}/{(len(texts)-1)//batch_size + 1}")
+
+            logger.info(f"Embeddings úspešne vygenerované: {len(all_embeddings)} vektorov")
+            return all_embeddings
+
+        except Exception as e:
+            logger.error(f"Chyba pri generovaní embeddings: {e}")
+            raise
+
+    def generate_query_embedding(self, query: str) -> List[float]:
         """
-        Generate embedding for a single query string.
-        
+        Generuje embedding pre search query.
+
         Args:
-            query: Query text to embed
-            
+            query: Search query text
+
         Returns:
-            numpy array of shape (embedding_dimension,)
-            
-        Raises:
-            ValueError: If query is empty
+            Embedding vektor (normalizovaný)
         """
         if not query or not query.strip():
-            raise ValueError("Cannot generate embedding for empty query")
-        
-        # Generate single embedding using SentenceTransformer
-        embedding = self.model.encode(
-            query,
-            convert_to_numpy=True,
-            show_progress_bar=False
-        )
-        
-        return embedding
-    
+            logger.warning("Prázdny query pre embedding")
+            return []
+
+        logger.info(f"Generujem query embedding: '{query[:50]}...'")
+
+        try:
+            response = self.client.embeddings.create(
+                model=self.model_name,
+                input=query
+            )
+            
+            embedding = response.data[0].embedding
+            return embedding
+
+        except Exception as e:
+            logger.error(f"Chyba pri generovaní query embedding: {e}")
+            raise
+
     def get_embedding_dimension(self) -> int:
         """
-        Get the dimension of the embeddings produced by this model.
-        
+        Vráti dimenziu embedding vektora.
+
         Returns:
-            Integer dimension of embedding vectors
+            Počet dimenzií (1536 pre text-embedding-3-small)
         """
-        return self.embedding_dimension
-    
-    def get_model_info(self) -> dict:
-        """
-        Get information about the current embedding model.
-        
-        Returns:
-            Dictionary containing model information
-        """
-        return {
-            "model_name": self.model_name,
-            "embedding_dimension": self.embedding_dimension,
-            "max_sequence_length": 128,  # paraphrase-multilingual-MiniLM-L12-v2 max tokens
-            "supports_languages": ["Arabic", "English", "Slovak", "50+ others"]
-        }
+        return 1536
