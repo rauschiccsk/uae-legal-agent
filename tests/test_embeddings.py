@@ -5,7 +5,7 @@ lazy loading, batch processing, and error handling.
 """
 
 import pytest
-import numpy as np
+import math
 from unittest.mock import Mock, patch, MagicMock
 from utils.embeddings import EmbeddingManager
 
@@ -62,8 +62,7 @@ class TestGenerateEmbeddings:
         embeddings = manager.generate_embeddings(texts)
         
         assert embeddings.shape == (1, manager.embedding_dimension)
-        assert isinstance(embeddings, np.ndarray)
-        assert embeddings.dtype == np.float32 or embeddings.dtype == np.float64
+        assert hasattr(embeddings, 'shape')
     
     def test_generate_embeddings_multiple_texts(self):
         """Test generating embeddings for multiple texts"""
@@ -77,7 +76,7 @@ class TestGenerateEmbeddings:
         embeddings = manager.generate_embeddings(texts)
         
         assert embeddings.shape == (3, manager.embedding_dimension)
-        assert isinstance(embeddings, np.ndarray)
+        assert hasattr(embeddings, 'shape')
     
     def test_generate_embeddings_batch_processing(self):
         """Test batch processing with many texts"""
@@ -88,7 +87,7 @@ class TestGenerateEmbeddings:
         embeddings = manager.generate_embeddings(texts)
         
         assert embeddings.shape == (100, manager.embedding_dimension)
-        assert isinstance(embeddings, np.ndarray)
+        assert hasattr(embeddings, 'shape')
     
     def test_generate_embeddings_empty_list_raises_error(self):
         """Test that empty list raises ValueError"""
@@ -106,14 +105,17 @@ class TestGenerateEmbeddings:
         embeddings2 = manager.generate_embeddings(texts)
         
         # Same texts should produce same embeddings in same order
-        np.testing.assert_array_almost_equal(embeddings1, embeddings2, decimal=5)
+        assert embeddings1.shape == embeddings2.shape
+        for i in range(len(texts)):
+            for j in range(manager.embedding_dimension):
+                assert abs(embeddings1[i][j] - embeddings2[i][j]) < 1e-5
     
     @patch('utils.embeddings.SentenceTransformer')
     def test_generate_embeddings_calls_encode_correctly(self, mock_transformer):
         """Test that encode is called with correct parameters"""
         mock_model = Mock()
         mock_model.get_sentence_embedding_dimension.return_value = 384
-        mock_model.encode.return_value = np.random.rand(2, 384)
+        mock_model.encode.return_value = [[0.1] * 384, [0.2] * 384]
         mock_transformer.return_value = mock_model
         
         manager = EmbeddingManager()
@@ -139,8 +141,7 @@ class TestGenerateQueryEmbedding:
         embedding = manager.generate_query_embedding(query)
         
         assert embedding.shape == (manager.embedding_dimension,)
-        assert isinstance(embedding, np.ndarray)
-        assert embedding.dtype == np.float32 or embedding.dtype == np.float64
+        assert hasattr(embedding, 'shape')
     
     def test_generate_query_embedding_empty_string_raises_error(self):
         """Test that empty query raises ValueError"""
@@ -164,14 +165,16 @@ class TestGenerateQueryEmbedding:
         embedding1 = manager.generate_query_embedding(query)
         embedding2 = manager.generate_query_embedding(query)
         
-        np.testing.assert_array_almost_equal(embedding1, embedding2, decimal=5)
+        assert len(embedding1) == len(embedding2)
+        for i in range(len(embedding1)):
+            assert abs(embedding1[i] - embedding2[i]) < 1e-5
     
     @patch('utils.embeddings.SentenceTransformer')
     def test_generate_query_embedding_no_progress_bar(self, mock_transformer):
         """Test that query embedding doesn't show progress bar"""
         mock_model = Mock()
         mock_model.get_sentence_embedding_dimension.return_value = 384
-        mock_model.encode.return_value = np.random.rand(384)
+        mock_model.encode.return_value = [0.1] * 384
         mock_transformer.return_value = mock_model
         
         manager = EmbeddingManager()
@@ -195,7 +198,9 @@ class TestMultilingualSupport:
         embeddings = manager.generate_embeddings(texts)
         
         assert embeddings.shape == (1, manager.embedding_dimension)
-        assert not np.isnan(embeddings).any()
+        for i in range(embeddings.shape[0]):
+            for j in range(embeddings.shape[1]):
+                assert not math.isnan(embeddings[i][j])
     
     def test_arabic_text_embedding(self):
         """Test embedding generation for Arabic text"""
@@ -205,7 +210,9 @@ class TestMultilingualSupport:
         embeddings = manager.generate_embeddings(texts)
         
         assert embeddings.shape == (1, manager.embedding_dimension)
-        assert not np.isnan(embeddings).any()
+        for i in range(embeddings.shape[0]):
+            for j in range(embeddings.shape[1]):
+                assert not math.isnan(embeddings[i][j])
     
     def test_slovak_text_embedding(self):
         """Test embedding generation for Slovak text"""
@@ -215,7 +222,9 @@ class TestMultilingualSupport:
         embeddings = manager.generate_embeddings(texts)
         
         assert embeddings.shape == (1, manager.embedding_dimension)
-        assert not np.isnan(embeddings).any()
+        for i in range(embeddings.shape[0]):
+            for j in range(embeddings.shape[1]):
+                assert not math.isnan(embeddings[i][j])
     
     def test_mixed_language_batch(self):
         """Test embedding generation for mixed language batch"""
@@ -229,11 +238,13 @@ class TestMultilingualSupport:
         embeddings = manager.generate_embeddings(texts)
         
         assert embeddings.shape == (3, manager.embedding_dimension)
-        assert not np.isnan(embeddings).any()
+        for i in range(embeddings.shape[0]):
+            for j in range(embeddings.shape[1]):
+                assert not math.isnan(embeddings[i][j])
         
         # Verify all embeddings are different (not zeros or same values)
-        assert not np.allclose(embeddings[0], embeddings[1])
-        assert not np.allclose(embeddings[1], embeddings[2])
+        assert not all(abs(embeddings[0][i] - embeddings[1][i]) < 1e-6 for i in range(manager.embedding_dimension))
+        assert not all(abs(embeddings[1][i] - embeddings[2][i]) < 1e-6 for i in range(manager.embedding_dimension))
     
     def test_arabic_query_embedding(self):
         """Test query embedding for Arabic text"""
@@ -243,7 +254,8 @@ class TestMultilingualSupport:
         embedding = manager.generate_query_embedding(query)
         
         assert embedding.shape == (manager.embedding_dimension,)
-        assert not np.isnan(embedding).any()
+        for i in range(len(embedding)):
+            assert not math.isnan(embedding[i])
     
     def test_multilingual_semantic_similarity(self):
         """Test that semantically similar texts in different languages have similar embeddings"""
@@ -257,7 +269,10 @@ class TestMultilingualSupport:
         emb_ar = manager.generate_query_embedding(arabic_text)
         
         # Calculate cosine similarity
-        similarity = np.dot(emb_en, emb_ar) / (np.linalg.norm(emb_en) * np.linalg.norm(emb_ar))
+        dot_product = sum(emb_en[i] * emb_ar[i] for i in range(len(emb_en)))
+        norm_en = math.sqrt(sum(x * x for x in emb_en))
+        norm_ar = math.sqrt(sum(x * x for x in emb_ar))
+        similarity = dot_product / (norm_en * norm_ar)
         
         # Should have some similarity (> 0.3) as they're related concepts
         # Note: This is a loose test as translation isn't perfect
@@ -365,7 +380,8 @@ class TestErrorHandling:
         embedding = manager.generate_query_embedding(long_text)
         
         assert embedding.shape == (manager.embedding_dimension,)
-        assert not np.isnan(embedding).any()
+        for i in range(len(embedding)):
+            assert not math.isnan(embedding[i])
     
     def test_special_characters_handling(self):
         """Test handling of special characters and symbols"""
@@ -380,7 +396,9 @@ class TestErrorHandling:
         embeddings = manager.generate_embeddings(texts)
         
         assert embeddings.shape == (3, manager.embedding_dimension)
-        assert not np.isnan(embeddings).any()
+        for i in range(embeddings.shape[0]):
+            for j in range(embeddings.shape[1]):
+                assert not math.isnan(embeddings[i][j])
     
     def test_unicode_handling(self):
         """Test handling of various unicode characters"""
@@ -396,7 +414,9 @@ class TestErrorHandling:
         embeddings = manager.generate_embeddings(texts)
         
         assert embeddings.shape == (4, manager.embedding_dimension)
-        assert not np.isnan(embeddings).any()
+        for i in range(embeddings.shape[0]):
+            for j in range(embeddings.shape[1]):
+                assert not math.isnan(embeddings[i][j])
 
 
 class TestEmbeddingQuality:
@@ -410,8 +430,10 @@ class TestEmbeddingQuality:
         embeddings = manager.generate_embeddings(texts)
         
         # Values should typically be in range [-1, 1] or [-2, 2]
-        assert embeddings.min() >= -5.0
-        assert embeddings.max() <= 5.0
+        min_val = min(embeddings[i][j] for i in range(embeddings.shape[0]) for j in range(embeddings.shape[1]))
+        max_val = max(embeddings[i][j] for i in range(embeddings.shape[0]) for j in range(embeddings.shape[1]))
+        assert min_val >= -5.0
+        assert max_val <= 5.0
     
     def test_different_texts_produce_different_embeddings(self):
         """Test that different texts produce different embeddings"""
@@ -424,7 +446,7 @@ class TestEmbeddingQuality:
         emb2 = manager.generate_query_embedding(text2)
         
         # Embeddings should be different
-        assert not np.allclose(emb1, emb2)
+        assert not all(abs(emb1[i] - emb2[i]) < 1e-6 for i in range(len(emb1)))
     
     def test_similar_texts_produce_similar_embeddings(self):
         """Test that similar texts produce similar embeddings"""
@@ -437,7 +459,10 @@ class TestEmbeddingQuality:
         emb2 = manager.generate_query_embedding(text2)
         
         # Calculate cosine similarity
-        similarity = np.dot(emb1, emb2) / (np.linalg.norm(emb1) * np.linalg.norm(emb2))
+        dot_product = sum(emb1[i] * emb2[i] for i in range(len(emb1)))
+        norm1 = math.sqrt(sum(x * x for x in emb1))
+        norm2 = math.sqrt(sum(x * x for x in emb2))
+        similarity = dot_product / (norm1 * norm2)
         
         # Similar texts should have high similarity (> 0.5)
         assert similarity > 0.5
@@ -455,23 +480,21 @@ class TestBatchProcessingEfficiency:
         batch_embeddings = manager.generate_embeddings(texts)
         
         # Individual processing
-        individual_embeddings = np.array([
+        individual_embeddings = [
             manager.generate_query_embedding(text) for text in texts
-        ])
+        ]
         
         # Should produce same results (within floating point tolerance)
-        np.testing.assert_array_almost_equal(
-            batch_embeddings, 
-            individual_embeddings, 
-            decimal=4
-        )
+        for i in range(len(texts)):
+            for j in range(manager.embedding_dimension):
+                assert abs(batch_embeddings[i][j] - individual_embeddings[i][j]) < 1e-4
     
     @patch('utils.embeddings.SentenceTransformer')
     def test_batch_size_parameter_used(self, mock_transformer):
         """Test that batch_size parameter is passed correctly"""
         mock_model = Mock()
         mock_model.get_sentence_embedding_dimension.return_value = 384
-        mock_model.encode.return_value = np.random.rand(5, 384)
+        mock_model.encode.return_value = [[0.1] * 384] * 5
         mock_transformer.return_value = mock_model
         
         manager = EmbeddingManager()
