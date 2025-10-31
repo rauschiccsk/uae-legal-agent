@@ -5,7 +5,11 @@ Adds Dev Agent information to INIT_CONTEXT.md and creates final session notes
 Run this script, then regenerate project_file_access.json
 """
 from pathlib import Path
-from datetime import datetime
+from datetime import datetime, timezone, timedelta
+
+
+# Central European Time (GMT+2)
+CET = timezone(timedelta(hours=2))
 
 
 def update_init_context():
@@ -123,7 +127,7 @@ Slack (after setup):
 def create_final_session_note():
     """Create final session note with Dev Agent info"""
 
-    now = datetime.now()
+    now = datetime.now(CET)  # Using GMT+2 for local timestamps
     date_str = now.strftime("%Y-%m-%d")
     time_str = now.strftime("%H%M")
     session_file = Path(f"docs/sessions/{date_str}_{time_str}_final_session.md")
@@ -485,7 +489,7 @@ Workflow: scripts/n8n_dev_agent_workflow.json
 
 ---
 
-**Session End:** {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}  
+**Session End:** {datetime.now(CET).strftime('%Y-%m-%d %H:%M:%S')}  
 **Status:** ✅ Phase 0 Complete + Dev Agent Ready  
 **Next Session:** Legal Analysis Prototype (Phase 1)  
 
