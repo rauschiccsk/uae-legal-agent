@@ -1,12 +1,15 @@
 """Text embedding generation using OpenAI API with caching and retry logic."""
 
+import logging
 import time
 import hashlib
 from typing import List, Dict, Optional, Any
 from openai import OpenAI
 from tenacity import retry, stop_after_attempt, wait_exponential
-from utils.logger import logger
-from utils.config import settings
+from config import settings
+
+# Setup logger
+logger = logging.getLogger(__name__)
 
 
 class EmbeddingsClient:
@@ -42,7 +45,7 @@ class EmbeddingsClient:
         """Lazy loading OpenAI client - created on first use."""
         if self._client is None:
             logger.info("Initializing OpenAI client")
-            self._client = OpenAI(api_key=settings.openai_api_key)
+            self._client = OpenAI(api_key=settings.OPENAI_API_KEY)
             logger.info("OpenAI client successfully initialized")
         return self._client
 

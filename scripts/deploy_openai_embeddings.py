@@ -63,10 +63,10 @@ def check_environment() -> Tuple[bool, str]:
         logger.error(error_msg)
         return False, error_msg
     
-    # Check ANTHROPIC_API_KEY
-    anthropic_key = os.getenv("ANTHROPIC_API_KEY")
-    if not anthropic_key:
-        error_msg = "ANTHROPIC_API_KEY is not set"
+    # Check CLAUDE_API_KEY
+    claude_key = os.getenv("CLAUDE_API_KEY")
+    if not claude_key:
+        error_msg = "CLAUDE_API_KEY is not set"
         logger.error(error_msg)
         return False, error_msg
     
