@@ -257,6 +257,7 @@ def reindex_documents(dry_run: bool = False) -> Dict:
         pdf_processor = PDFProcessor()
         embeddings_client = EmbeddingsClient()
         vector_store = VectorStore()
+        vector_store.initialize_db()
         
         total_tokens = 0
         processed_docs = 0
@@ -330,6 +331,7 @@ def verify_migration() -> Tuple[bool, str]:
         
         # Create vector store instance
         store = VectorStore()
+        store.initialize_db()
         
         # Test query
         test_query = "federal law UAE"

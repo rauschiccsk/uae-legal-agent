@@ -2,49 +2,49 @@
   "project_name": "uae-legal-agent",
   "description": "AI-powered legal analysis system for UAE law - Unified file access manifest",
   "repository": "https://github.com/rauschiccsk/uae-legal-agent",
-  "generated_at": "2025-10-31T16:28:36.580174",
-  "commit_sha": "782af10d0dd5e00472d402b844e39db20cb431a5",
-  "cache_buster": "782af10d0dd5e00472d402b844e39db20cb431a5",
-  "cache_version": "782af10d0dd5",
-  "base_url": "https://raw.githubusercontent.com/rauschiccsk/uae-legal-agent/782af10d0dd5e00472d402b844e39db20cb431a5",
+  "generated_at": "2025-10-31T17:37:05.037770",
+  "commit_sha": "a73bfcd411cb5f2a24ebea2cf877b144fb38f21b",
+  "cache_buster": "a73bfcd411cb5f2a24ebea2cf877b144fb38f21b",
+  "cache_version": "a73bfcd411cb",
+  "base_url": "https://raw.githubusercontent.com/rauschiccsk/uae-legal-agent/a73bfcd411cb5f2a24ebea2cf877b144fb38f21b",
   "quick_access": {
     "context_files": [
       {
         "name": "INIT_CONTEXT.md",
         "description": "Complete project context - load this first",
-        "url": "https://raw.githubusercontent.com/rauschiccsk/uae-legal-agent/782af10d0dd5e00472d402b844e39db20cb431a5/docs/INIT_CONTEXT.md?v=782af10d0dd5"
+        "url": "https://raw.githubusercontent.com/rauschiccsk/uae-legal-agent/a73bfcd411cb5f2a24ebea2cf877b144fb38f21b/docs/INIT_CONTEXT.md?v=a73bfcd411cb"
       },
       {
         "name": "SYSTEM_PROMPT.md",
         "description": "Claude instructions and workflow rules",
-        "url": "https://raw.githubusercontent.com/rauschiccsk/uae-legal-agent/782af10d0dd5e00472d402b844e39db20cb431a5/docs/SYSTEM_PROMPT.md?v=782af10d0dd5"
+        "url": "https://raw.githubusercontent.com/rauschiccsk/uae-legal-agent/a73bfcd411cb5f2a24ebea2cf877b144fb38f21b/docs/SYSTEM_PROMPT.md?v=a73bfcd411cb"
       },
       {
         "name": "MASTER_CONTEXT.md",
         "description": "Quick reference guide",
-        "url": "https://raw.githubusercontent.com/rauschiccsk/uae-legal-agent/782af10d0dd5e00472d402b844e39db20cb431a5/docs/MASTER_CONTEXT.md?v=782af10d0dd5"
+        "url": "https://raw.githubusercontent.com/rauschiccsk/uae-legal-agent/a73bfcd411cb5f2a24ebea2cf877b144fb38f21b/docs/MASTER_CONTEXT.md?v=a73bfcd411cb"
       }
     ],
     "core_modules": [
       {
         "name": "config.py",
         "description": "Project configuration (root)",
-        "url": "https://raw.githubusercontent.com/rauschiccsk/uae-legal-agent/782af10d0dd5e00472d402b844e39db20cb431a5/config.py?v=782af10d0dd5"
+        "url": "https://raw.githubusercontent.com/rauschiccsk/uae-legal-agent/a73bfcd411cb5f2a24ebea2cf877b144fb38f21b/config.py?v=a73bfcd411cb"
       },
       {
         "name": "main.py",
         "description": "CLI entry point (root)",
-        "url": "https://raw.githubusercontent.com/rauschiccsk/uae-legal-agent/782af10d0dd5e00472d402b844e39db20cb431a5/main.py?v=782af10d0dd5"
+        "url": "https://raw.githubusercontent.com/rauschiccsk/uae-legal-agent/a73bfcd411cb5f2a24ebea2cf877b144fb38f21b/main.py?v=a73bfcd411cb"
       },
       {
         "name": "utils/claude_client.py",
         "description": "Claude API wrapper",
-        "url": "https://raw.githubusercontent.com/rauschiccsk/uae-legal-agent/782af10d0dd5e00472d402b844e39db20cb431a5/utils/claude_client.py?v=782af10d0dd5"
+        "url": "https://raw.githubusercontent.com/rauschiccsk/uae-legal-agent/a73bfcd411cb5f2a24ebea2cf877b144fb38f21b/utils/claude_client.py?v=a73bfcd411cb"
       },
       {
         "name": "utils/vector_store.py",
         "description": "Vector database interface",
-        "url": "https://raw.githubusercontent.com/rauschiccsk/uae-legal-agent/782af10d0dd5e00472d402b844e39db20cb431a5/utils/vector_store.py?v=782af10d0dd5"
+        "url": "https://raw.githubusercontent.com/rauschiccsk/uae-legal-agent/a73bfcd411cb5f2a24ebea2cf877b144fb38f21b/utils/vector_store.py?v=a73bfcd411cb"
       }
     ]
   },
@@ -82,7 +82,7 @@
   "files": [
     {
       "path": "config.py",
-      "raw_url": "https://raw.githubusercontent.com/rauschiccsk/uae-legal-agent/782af10d0dd5e00472d402b844e39db20cb431a5/config.py?v=782af10d0dd5",
+      "raw_url": "https://raw.githubusercontent.com/rauschiccsk/uae-legal-agent/a73bfcd411cb5f2a24ebea2cf877b144fb38f21b/config.py?v=a73bfcd411cb",
       "size": 1736,
       "extension": ".py",
       "name": "config.py",
@@ -90,7 +90,7 @@
     },
     {
       "path": "data/README.md",
-      "raw_url": "https://raw.githubusercontent.com/rauschiccsk/uae-legal-agent/782af10d0dd5e00472d402b844e39db20cb431a5/data/README.md?v=782af10d0dd5",
+      "raw_url": "https://raw.githubusercontent.com/rauschiccsk/uae-legal-agent/a73bfcd411cb5f2a24ebea2cf877b144fb38f21b/data/README.md?v=a73bfcd411cb",
       "size": 454,
       "extension": ".md",
       "name": "README.md",
@@ -98,7 +98,7 @@
     },
     {
       "path": "docs/DEPLOYMENT.md",
-      "raw_url": "https://raw.githubusercontent.com/rauschiccsk/uae-legal-agent/782af10d0dd5e00472d402b844e39db20cb431a5/docs/DEPLOYMENT.md?v=782af10d0dd5",
+      "raw_url": "https://raw.githubusercontent.com/rauschiccsk/uae-legal-agent/a73bfcd411cb5f2a24ebea2cf877b144fb38f21b/docs/DEPLOYMENT.md?v=a73bfcd411cb",
       "size": 2998,
       "extension": ".md",
       "name": "DEPLOYMENT.md",
@@ -106,7 +106,7 @@
     },
     {
       "path": "docs/GITHUB_SETUP.md",
-      "raw_url": "https://raw.githubusercontent.com/rauschiccsk/uae-legal-agent/782af10d0dd5e00472d402b844e39db20cb431a5/docs/GITHUB_SETUP.md?v=782af10d0dd5",
+      "raw_url": "https://raw.githubusercontent.com/rauschiccsk/uae-legal-agent/a73bfcd411cb5f2a24ebea2cf877b144fb38f21b/docs/GITHUB_SETUP.md?v=a73bfcd411cb",
       "size": 13474,
       "extension": ".md",
       "name": "GITHUB_SETUP.md",
@@ -114,7 +114,7 @@
     },
     {
       "path": "docs/INIT_CONTEXT.md",
-      "raw_url": "https://raw.githubusercontent.com/rauschiccsk/uae-legal-agent/782af10d0dd5e00472d402b844e39db20cb431a5/docs/INIT_CONTEXT.md?v=782af10d0dd5",
+      "raw_url": "https://raw.githubusercontent.com/rauschiccsk/uae-legal-agent/a73bfcd411cb5f2a24ebea2cf877b144fb38f21b/docs/INIT_CONTEXT.md?v=a73bfcd411cb",
       "size": 959,
       "extension": ".md",
       "name": "INIT_CONTEXT.md",
@@ -122,7 +122,7 @@
     },
     {
       "path": "docs/MASTER_CONTEXT.md",
-      "raw_url": "https://raw.githubusercontent.com/rauschiccsk/uae-legal-agent/782af10d0dd5e00472d402b844e39db20cb431a5/docs/MASTER_CONTEXT.md?v=782af10d0dd5",
+      "raw_url": "https://raw.githubusercontent.com/rauschiccsk/uae-legal-agent/a73bfcd411cb5f2a24ebea2cf877b144fb38f21b/docs/MASTER_CONTEXT.md?v=a73bfcd411cb",
       "size": 13291,
       "extension": ".md",
       "name": "MASTER_CONTEXT.md",
@@ -130,7 +130,7 @@
     },
     {
       "path": "docs/SYSTEM_PROMPT.md",
-      "raw_url": "https://raw.githubusercontent.com/rauschiccsk/uae-legal-agent/782af10d0dd5e00472d402b844e39db20cb431a5/docs/SYSTEM_PROMPT.md?v=782af10d0dd5",
+      "raw_url": "https://raw.githubusercontent.com/rauschiccsk/uae-legal-agent/a73bfcd411cb5f2a24ebea2cf877b144fb38f21b/docs/SYSTEM_PROMPT.md?v=a73bfcd411cb",
       "size": 10471,
       "extension": ".md",
       "name": "SYSTEM_PROMPT.md",
@@ -138,7 +138,7 @@
     },
     {
       "path": "docs/sessions/2025-10-25_session.md",
-      "raw_url": "https://raw.githubusercontent.com/rauschiccsk/uae-legal-agent/782af10d0dd5e00472d402b844e39db20cb431a5/docs/sessions/2025-10-25_session.md?v=782af10d0dd5",
+      "raw_url": "https://raw.githubusercontent.com/rauschiccsk/uae-legal-agent/a73bfcd411cb5f2a24ebea2cf877b144fb38f21b/docs/sessions/2025-10-25_session.md?v=a73bfcd411cb",
       "size": 20297,
       "extension": ".md",
       "name": "2025-10-25_session.md",
@@ -146,7 +146,7 @@
     },
     {
       "path": "docs/sessions/2025-10-28_logger_tests_fix.md",
-      "raw_url": "https://raw.githubusercontent.com/rauschiccsk/uae-legal-agent/782af10d0dd5e00472d402b844e39db20cb431a5/docs/sessions/2025-10-28_logger_tests_fix.md?v=782af10d0dd5",
+      "raw_url": "https://raw.githubusercontent.com/rauschiccsk/uae-legal-agent/a73bfcd411cb5f2a24ebea2cf877b144fb38f21b/docs/sessions/2025-10-28_logger_tests_fix.md?v=a73bfcd411cb",
       "size": 9441,
       "extension": ".md",
       "name": "2025-10-28_logger_tests_fix.md",
@@ -154,7 +154,7 @@
     },
     {
       "path": "docs/sessions/2025-10-29_config_module.md",
-      "raw_url": "https://raw.githubusercontent.com/rauschiccsk/uae-legal-agent/782af10d0dd5e00472d402b844e39db20cb431a5/docs/sessions/2025-10-29_config_module.md?v=782af10d0dd5",
+      "raw_url": "https://raw.githubusercontent.com/rauschiccsk/uae-legal-agent/a73bfcd411cb5f2a24ebea2cf877b144fb38f21b/docs/sessions/2025-10-29_config_module.md?v=a73bfcd411cb",
       "size": 6645,
       "extension": ".md",
       "name": "2025-10-29_config_module.md",
@@ -162,7 +162,7 @@
     },
     {
       "path": "docs/sessions/2025-10-29_config_module_fix.md",
-      "raw_url": "https://raw.githubusercontent.com/rauschiccsk/uae-legal-agent/782af10d0dd5e00472d402b844e39db20cb431a5/docs/sessions/2025-10-29_config_module_fix.md?v=782af10d0dd5",
+      "raw_url": "https://raw.githubusercontent.com/rauschiccsk/uae-legal-agent/a73bfcd411cb5f2a24ebea2cf877b144fb38f21b/docs/sessions/2025-10-29_config_module_fix.md?v=a73bfcd411cb",
       "size": 5266,
       "extension": ".md",
       "name": "2025-10-29_config_module_fix.md",
@@ -170,7 +170,7 @@
     },
     {
       "path": "docs/sessions/2025-10-29_evening_pdf_claude.md",
-      "raw_url": "https://raw.githubusercontent.com/rauschiccsk/uae-legal-agent/782af10d0dd5e00472d402b844e39db20cb431a5/docs/sessions/2025-10-29_evening_pdf_claude.md?v=782af10d0dd5",
+      "raw_url": "https://raw.githubusercontent.com/rauschiccsk/uae-legal-agent/a73bfcd411cb5f2a24ebea2cf877b144fb38f21b/docs/sessions/2025-10-29_evening_pdf_claude.md?v=a73bfcd411cb",
       "size": 5042,
       "extension": ".md",
       "name": "2025-10-29_evening_pdf_claude.md",
@@ -178,7 +178,7 @@
     },
     {
       "path": "docs/sessions/2025-10-30_embeddings_implementation.md",
-      "raw_url": "https://raw.githubusercontent.com/rauschiccsk/uae-legal-agent/782af10d0dd5e00472d402b844e39db20cb431a5/docs/sessions/2025-10-30_embeddings_implementation.md?v=782af10d0dd5",
+      "raw_url": "https://raw.githubusercontent.com/rauschiccsk/uae-legal-agent/a73bfcd411cb5f2a24ebea2cf877b144fb38f21b/docs/sessions/2025-10-30_embeddings_implementation.md?v=a73bfcd411cb",
       "size": 8985,
       "extension": ".md",
       "name": "2025-10-30_embeddings_implementation.md",
@@ -186,7 +186,7 @@
     },
     {
       "path": "docs/sessions/2025-10-30_embeddings_migration_session.md",
-      "raw_url": "https://raw.githubusercontent.com/rauschiccsk/uae-legal-agent/782af10d0dd5e00472d402b844e39db20cb431a5/docs/sessions/2025-10-30_embeddings_migration_session.md?v=782af10d0dd5",
+      "raw_url": "https://raw.githubusercontent.com/rauschiccsk/uae-legal-agent/a73bfcd411cb5f2a24ebea2cf877b144fb38f21b/docs/sessions/2025-10-30_embeddings_migration_session.md?v=a73bfcd411cb",
       "size": 11709,
       "extension": ".md",
       "name": "2025-10-30_embeddings_migration_session.md",
@@ -194,7 +194,7 @@
     },
     {
       "path": "docs/sessions/2025-10-30_embeddings_openai.md",
-      "raw_url": "https://raw.githubusercontent.com/rauschiccsk/uae-legal-agent/782af10d0dd5e00472d402b844e39db20cb431a5/docs/sessions/2025-10-30_embeddings_openai.md?v=782af10d0dd5",
+      "raw_url": "https://raw.githubusercontent.com/rauschiccsk/uae-legal-agent/a73bfcd411cb5f2a24ebea2cf877b144fb38f21b/docs/sessions/2025-10-30_embeddings_openai.md?v=a73bfcd411cb",
       "size": 8482,
       "extension": ".md",
       "name": "2025-10-30_embeddings_openai.md",
@@ -202,7 +202,7 @@
     },
     {
       "path": "docs/sessions/2025-10-30_manifest_fix.md",
-      "raw_url": "https://raw.githubusercontent.com/rauschiccsk/uae-legal-agent/782af10d0dd5e00472d402b844e39db20cb431a5/docs/sessions/2025-10-30_manifest_fix.md?v=782af10d0dd5",
+      "raw_url": "https://raw.githubusercontent.com/rauschiccsk/uae-legal-agent/a73bfcd411cb5f2a24ebea2cf877b144fb38f21b/docs/sessions/2025-10-30_manifest_fix.md?v=a73bfcd411cb",
       "size": 9931,
       "extension": ".md",
       "name": "2025-10-30_manifest_fix.md",
@@ -210,7 +210,7 @@
     },
     {
       "path": "docs/sessions/2025-10-31_1230_github_cache_fix.md",
-      "raw_url": "https://raw.githubusercontent.com/rauschiccsk/uae-legal-agent/782af10d0dd5e00472d402b844e39db20cb431a5/docs/sessions/2025-10-31_1230_github_cache_fix.md?v=782af10d0dd5",
+      "raw_url": "https://raw.githubusercontent.com/rauschiccsk/uae-legal-agent/a73bfcd411cb5f2a24ebea2cf877b144fb38f21b/docs/sessions/2025-10-31_1230_github_cache_fix.md?v=a73bfcd411cb",
       "size": 12533,
       "extension": ".md",
       "name": "2025-10-31_1230_github_cache_fix.md",
@@ -218,7 +218,7 @@
     },
     {
       "path": "docs/sessions/2025-10-31_1235_deployment_prep_session.md",
-      "raw_url": "https://raw.githubusercontent.com/rauschiccsk/uae-legal-agent/782af10d0dd5e00472d402b844e39db20cb431a5/docs/sessions/2025-10-31_1235_deployment_prep_session.md?v=782af10d0dd5",
+      "raw_url": "https://raw.githubusercontent.com/rauschiccsk/uae-legal-agent/a73bfcd411cb5f2a24ebea2cf877b144fb38f21b/docs/sessions/2025-10-31_1235_deployment_prep_session.md?v=a73bfcd411cb",
       "size": 5874,
       "extension": ".md",
       "name": "2025-10-31_1235_deployment_prep_session.md",
@@ -226,7 +226,7 @@
     },
     {
       "path": "docs/sessions/2025-10-31_1244_complete_bugfix_session.md",
-      "raw_url": "https://raw.githubusercontent.com/rauschiccsk/uae-legal-agent/782af10d0dd5e00472d402b844e39db20cb431a5/docs/sessions/2025-10-31_1244_complete_bugfix_session.md?v=782af10d0dd5",
+      "raw_url": "https://raw.githubusercontent.com/rauschiccsk/uae-legal-agent/a73bfcd411cb5f2a24ebea2cf877b144fb38f21b/docs/sessions/2025-10-31_1244_complete_bugfix_session.md?v=a73bfcd411cb",
       "size": 9483,
       "extension": ".md",
       "name": "2025-10-31_1244_complete_bugfix_session.md",
@@ -234,7 +234,7 @@
     },
     {
       "path": "docs/sessions/2025-10-31_1310_complete_workflow_session.md",
-      "raw_url": "https://raw.githubusercontent.com/rauschiccsk/uae-legal-agent/782af10d0dd5e00472d402b844e39db20cb431a5/docs/sessions/2025-10-31_1310_complete_workflow_session.md?v=782af10d0dd5",
+      "raw_url": "https://raw.githubusercontent.com/rauschiccsk/uae-legal-agent/a73bfcd411cb5f2a24ebea2cf877b144fb38f21b/docs/sessions/2025-10-31_1310_complete_workflow_session.md?v=a73bfcd411cb",
       "size": 11779,
       "extension": ".md",
       "name": "2025-10-31_1310_complete_workflow_session.md",
@@ -242,7 +242,7 @@
     },
     {
       "path": "docs/sessions/2025-10-31_1615_deployment_fixes_session.md",
-      "raw_url": "https://raw.githubusercontent.com/rauschiccsk/uae-legal-agent/782af10d0dd5e00472d402b844e39db20cb431a5/docs/sessions/2025-10-31_1615_deployment_fixes_session.md?v=782af10d0dd5",
+      "raw_url": "https://raw.githubusercontent.com/rauschiccsk/uae-legal-agent/a73bfcd411cb5f2a24ebea2cf877b144fb38f21b/docs/sessions/2025-10-31_1615_deployment_fixes_session.md?v=a73bfcd411cb",
       "size": 17174,
       "extension": ".md",
       "name": "2025-10-31_1615_deployment_fixes_session.md",
@@ -250,7 +250,7 @@
     },
     {
       "path": "docs/templates/task_template.yaml",
-      "raw_url": "https://raw.githubusercontent.com/rauschiccsk/uae-legal-agent/782af10d0dd5e00472d402b844e39db20cb431a5/docs/templates/task_template.yaml?v=782af10d0dd5",
+      "raw_url": "https://raw.githubusercontent.com/rauschiccsk/uae-legal-agent/a73bfcd411cb5f2a24ebea2cf877b144fb38f21b/docs/templates/task_template.yaml?v=a73bfcd411cb",
       "size": 5960,
       "extension": ".yaml",
       "name": "task_template.yaml",
@@ -258,7 +258,7 @@
     },
     {
       "path": "docs/test_commit_analysis.md",
-      "raw_url": "https://raw.githubusercontent.com/rauschiccsk/uae-legal-agent/782af10d0dd5e00472d402b844e39db20cb431a5/docs/test_commit_analysis.md?v=782af10d0dd5",
+      "raw_url": "https://raw.githubusercontent.com/rauschiccsk/uae-legal-agent/a73bfcd411cb5f2a24ebea2cf877b144fb38f21b/docs/test_commit_analysis.md?v=a73bfcd411cb",
       "size": 1863,
       "extension": ".md",
       "name": "test_commit_analysis.md",
@@ -266,7 +266,7 @@
     },
     {
       "path": "main.py",
-      "raw_url": "https://raw.githubusercontent.com/rauschiccsk/uae-legal-agent/782af10d0dd5e00472d402b844e39db20cb431a5/main.py?v=782af10d0dd5",
+      "raw_url": "https://raw.githubusercontent.com/rauschiccsk/uae-legal-agent/a73bfcd411cb5f2a24ebea2cf877b144fb38f21b/main.py?v=a73bfcd411cb",
       "size": 6422,
       "extension": ".py",
       "name": "main.py",
@@ -274,7 +274,7 @@
     },
     {
       "path": "pytest.ini",
-      "raw_url": "https://raw.githubusercontent.com/rauschiccsk/uae-legal-agent/782af10d0dd5e00472d402b844e39db20cb431a5/pytest.ini?v=782af10d0dd5",
+      "raw_url": "https://raw.githubusercontent.com/rauschiccsk/uae-legal-agent/a73bfcd411cb5f2a24ebea2cf877b144fb38f21b/pytest.ini?v=a73bfcd411cb",
       "size": 340,
       "extension": ".ini",
       "name": "pytest.ini",
@@ -282,7 +282,7 @@
     },
     {
       "path": "requirements-production.txt",
-      "raw_url": "https://raw.githubusercontent.com/rauschiccsk/uae-legal-agent/782af10d0dd5e00472d402b844e39db20cb431a5/requirements-production.txt?v=782af10d0dd5",
+      "raw_url": "https://raw.githubusercontent.com/rauschiccsk/uae-legal-agent/a73bfcd411cb5f2a24ebea2cf877b144fb38f21b/requirements-production.txt?v=a73bfcd411cb",
       "size": 571,
       "extension": ".txt",
       "name": "requirements-production.txt",
@@ -290,7 +290,7 @@
     },
     {
       "path": "requirements.txt",
-      "raw_url": "https://raw.githubusercontent.com/rauschiccsk/uae-legal-agent/782af10d0dd5e00472d402b844e39db20cb431a5/requirements.txt?v=782af10d0dd5",
+      "raw_url": "https://raw.githubusercontent.com/rauschiccsk/uae-legal-agent/a73bfcd411cb5f2a24ebea2cf877b144fb38f21b/requirements.txt?v=a73bfcd411cb",
       "size": 255,
       "extension": ".txt",
       "name": "requirements.txt",
@@ -298,15 +298,15 @@
     },
     {
       "path": "scripts/deploy_openai_embeddings.py",
-      "raw_url": "https://raw.githubusercontent.com/rauschiccsk/uae-legal-agent/782af10d0dd5e00472d402b844e39db20cb431a5/scripts/deploy_openai_embeddings.py?v=782af10d0dd5",
-      "size": 20101,
+      "raw_url": "https://raw.githubusercontent.com/rauschiccsk/uae-legal-agent/a73bfcd411cb5f2a24ebea2cf877b144fb38f21b/scripts/deploy_openai_embeddings.py?v=a73bfcd411cb",
+      "size": 20170,
       "extension": ".py",
       "name": "deploy_openai_embeddings.py",
       "category": "python_sources"
     },
     {
       "path": "scripts/dev_chat.py",
-      "raw_url": "https://raw.githubusercontent.com/rauschiccsk/uae-legal-agent/782af10d0dd5e00472d402b844e39db20cb431a5/scripts/dev_chat.py?v=782af10d0dd5",
+      "raw_url": "https://raw.githubusercontent.com/rauschiccsk/uae-legal-agent/a73bfcd411cb5f2a24ebea2cf877b144fb38f21b/scripts/dev_chat.py?v=a73bfcd411cb",
       "size": 15051,
       "extension": ".py",
       "name": "dev_chat.py",
@@ -314,7 +314,7 @@
     },
     {
       "path": "scripts/generate_project_access.py",
-      "raw_url": "https://raw.githubusercontent.com/rauschiccsk/uae-legal-agent/782af10d0dd5e00472d402b844e39db20cb431a5/scripts/generate_project_access.py?v=782af10d0dd5",
+      "raw_url": "https://raw.githubusercontent.com/rauschiccsk/uae-legal-agent/a73bfcd411cb5f2a24ebea2cf877b144fb38f21b/scripts/generate_project_access.py?v=a73bfcd411cb",
       "size": 12367,
       "extension": ".py",
       "name": "generate_project_access.py",
@@ -322,7 +322,7 @@
     },
     {
       "path": "scripts/monitoring_embeddings.py",
-      "raw_url": "https://raw.githubusercontent.com/rauschiccsk/uae-legal-agent/782af10d0dd5e00472d402b844e39db20cb431a5/scripts/monitoring_embeddings.py?v=782af10d0dd5",
+      "raw_url": "https://raw.githubusercontent.com/rauschiccsk/uae-legal-agent/a73bfcd411cb5f2a24ebea2cf877b144fb38f21b/scripts/monitoring_embeddings.py?v=a73bfcd411cb",
       "size": 13441,
       "extension": ".py",
       "name": "monitoring_embeddings.py",
@@ -330,7 +330,7 @@
     },
     {
       "path": "scripts/setup_github_docs.py",
-      "raw_url": "https://raw.githubusercontent.com/rauschiccsk/uae-legal-agent/782af10d0dd5e00472d402b844e39db20cb431a5/scripts/setup_github_docs.py?v=782af10d0dd5",
+      "raw_url": "https://raw.githubusercontent.com/rauschiccsk/uae-legal-agent/a73bfcd411cb5f2a24ebea2cf877b144fb38f21b/scripts/setup_github_docs.py?v=a73bfcd411cb",
       "size": 19373,
       "extension": ".py",
       "name": "setup_github_docs.py",
@@ -338,7 +338,7 @@
     },
     {
       "path": "scripts/update_docs.py",
-      "raw_url": "https://raw.githubusercontent.com/rauschiccsk/uae-legal-agent/782af10d0dd5e00472d402b844e39db20cb431a5/scripts/update_docs.py?v=782af10d0dd5",
+      "raw_url": "https://raw.githubusercontent.com/rauschiccsk/uae-legal-agent/a73bfcd411cb5f2a24ebea2cf877b144fb38f21b/scripts/update_docs.py?v=a73bfcd411cb",
       "size": 14154,
       "extension": ".py",
       "name": "update_docs.py",
@@ -346,7 +346,7 @@
     },
     {
       "path": "tests/__init__.py",
-      "raw_url": "https://raw.githubusercontent.com/rauschiccsk/uae-legal-agent/782af10d0dd5e00472d402b844e39db20cb431a5/tests/__init__.py?v=782af10d0dd5",
+      "raw_url": "https://raw.githubusercontent.com/rauschiccsk/uae-legal-agent/a73bfcd411cb5f2a24ebea2cf877b144fb38f21b/tests/__init__.py?v=a73bfcd411cb",
       "size": 57,
       "extension": ".py",
       "name": "__init__.py",
@@ -354,7 +354,7 @@
     },
     {
       "path": "tests/conftest.py",
-      "raw_url": "https://raw.githubusercontent.com/rauschiccsk/uae-legal-agent/782af10d0dd5e00472d402b844e39db20cb431a5/tests/conftest.py?v=782af10d0dd5",
+      "raw_url": "https://raw.githubusercontent.com/rauschiccsk/uae-legal-agent/a73bfcd411cb5f2a24ebea2cf877b144fb38f21b/tests/conftest.py?v=a73bfcd411cb",
       "size": 1084,
       "extension": ".py",
       "name": "conftest.py",
@@ -362,7 +362,7 @@
     },
     {
       "path": "tests/debug_api_test.py",
-      "raw_url": "https://raw.githubusercontent.com/rauschiccsk/uae-legal-agent/782af10d0dd5e00472d402b844e39db20cb431a5/tests/debug_api_test.py?v=782af10d0dd5",
+      "raw_url": "https://raw.githubusercontent.com/rauschiccsk/uae-legal-agent/a73bfcd411cb5f2a24ebea2cf877b144fb38f21b/tests/debug_api_test.py?v=a73bfcd411cb",
       "size": 0,
       "extension": ".py",
       "name": "debug_api_test.py",
@@ -370,7 +370,7 @@
     },
     {
       "path": "tests/test_api.py",
-      "raw_url": "https://raw.githubusercontent.com/rauschiccsk/uae-legal-agent/782af10d0dd5e00472d402b844e39db20cb431a5/tests/test_api.py?v=782af10d0dd5",
+      "raw_url": "https://raw.githubusercontent.com/rauschiccsk/uae-legal-agent/a73bfcd411cb5f2a24ebea2cf877b144fb38f21b/tests/test_api.py?v=a73bfcd411cb",
       "size": 808,
       "extension": ".py",
       "name": "test_api.py",
@@ -378,7 +378,7 @@
     },
     {
       "path": "tests/test_api_endpoints.py",
-      "raw_url": "https://raw.githubusercontent.com/rauschiccsk/uae-legal-agent/782af10d0dd5e00472d402b844e39db20cb431a5/tests/test_api_endpoints.py?v=782af10d0dd5",
+      "raw_url": "https://raw.githubusercontent.com/rauschiccsk/uae-legal-agent/a73bfcd411cb5f2a24ebea2cf877b144fb38f21b/tests/test_api_endpoints.py?v=a73bfcd411cb",
       "size": 1093,
       "extension": ".py",
       "name": "test_api_endpoints.py",
@@ -386,7 +386,7 @@
     },
     {
       "path": "tests/test_claude_api.py",
-      "raw_url": "https://raw.githubusercontent.com/rauschiccsk/uae-legal-agent/782af10d0dd5e00472d402b844e39db20cb431a5/tests/test_claude_api.py?v=782af10d0dd5",
+      "raw_url": "https://raw.githubusercontent.com/rauschiccsk/uae-legal-agent/a73bfcd411cb5f2a24ebea2cf877b144fb38f21b/tests/test_claude_api.py?v=a73bfcd411cb",
       "size": 14858,
       "extension": ".py",
       "name": "test_claude_api.py",
@@ -394,7 +394,7 @@
     },
     {
       "path": "tests/test_config.py",
-      "raw_url": "https://raw.githubusercontent.com/rauschiccsk/uae-legal-agent/782af10d0dd5e00472d402b844e39db20cb431a5/tests/test_config.py?v=782af10d0dd5",
+      "raw_url": "https://raw.githubusercontent.com/rauschiccsk/uae-legal-agent/a73bfcd411cb5f2a24ebea2cf877b144fb38f21b/tests/test_config.py?v=a73bfcd411cb",
       "size": 7194,
       "extension": ".py",
       "name": "test_config.py",
@@ -402,7 +402,7 @@
     },
     {
       "path": "tests/test_embeddings.py",
-      "raw_url": "https://raw.githubusercontent.com/rauschiccsk/uae-legal-agent/782af10d0dd5e00472d402b844e39db20cb431a5/tests/test_embeddings.py?v=782af10d0dd5",
+      "raw_url": "https://raw.githubusercontent.com/rauschiccsk/uae-legal-agent/a73bfcd411cb5f2a24ebea2cf877b144fb38f21b/tests/test_embeddings.py?v=a73bfcd411cb",
       "size": 27668,
       "extension": ".py",
       "name": "test_embeddings.py",
@@ -410,7 +410,7 @@
     },
     {
       "path": "tests/test_lite_server.py",
-      "raw_url": "https://raw.githubusercontent.com/rauschiccsk/uae-legal-agent/782af10d0dd5e00472d402b844e39db20cb431a5/tests/test_lite_server.py?v=782af10d0dd5",
+      "raw_url": "https://raw.githubusercontent.com/rauschiccsk/uae-legal-agent/a73bfcd411cb5f2a24ebea2cf877b144fb38f21b/tests/test_lite_server.py?v=a73bfcd411cb",
       "size": 1552,
       "extension": ".py",
       "name": "test_lite_server.py",
@@ -418,7 +418,7 @@
     },
     {
       "path": "tests/test_logger.py",
-      "raw_url": "https://raw.githubusercontent.com/rauschiccsk/uae-legal-agent/782af10d0dd5e00472d402b844e39db20cb431a5/tests/test_logger.py?v=782af10d0dd5",
+      "raw_url": "https://raw.githubusercontent.com/rauschiccsk/uae-legal-agent/a73bfcd411cb5f2a24ebea2cf877b144fb38f21b/tests/test_logger.py?v=a73bfcd411cb",
       "size": 5134,
       "extension": ".py",
       "name": "test_logger.py",
@@ -426,7 +426,7 @@
     },
     {
       "path": "tests/test_pdf_processor.py",
-      "raw_url": "https://raw.githubusercontent.com/rauschiccsk/uae-legal-agent/782af10d0dd5e00472d402b844e39db20cb431a5/tests/test_pdf_processor.py?v=782af10d0dd5",
+      "raw_url": "https://raw.githubusercontent.com/rauschiccsk/uae-legal-agent/a73bfcd411cb5f2a24ebea2cf877b144fb38f21b/tests/test_pdf_processor.py?v=a73bfcd411cb",
       "size": 15484,
       "extension": ".py",
       "name": "test_pdf_processor.py",
@@ -434,7 +434,7 @@
     },
     {
       "path": "tests/test_text_processing.py",
-      "raw_url": "https://raw.githubusercontent.com/rauschiccsk/uae-legal-agent/782af10d0dd5e00472d402b844e39db20cb431a5/tests/test_text_processing.py?v=782af10d0dd5",
+      "raw_url": "https://raw.githubusercontent.com/rauschiccsk/uae-legal-agent/a73bfcd411cb5f2a24ebea2cf877b144fb38f21b/tests/test_text_processing.py?v=a73bfcd411cb",
       "size": 4160,
       "extension": ".py",
       "name": "test_text_processing.py",
@@ -442,7 +442,7 @@
     },
     {
       "path": "utils/__init__.py",
-      "raw_url": "https://raw.githubusercontent.com/rauschiccsk/uae-legal-agent/782af10d0dd5e00472d402b844e39db20cb431a5/utils/__init__.py?v=782af10d0dd5",
+      "raw_url": "https://raw.githubusercontent.com/rauschiccsk/uae-legal-agent/a73bfcd411cb5f2a24ebea2cf877b144fb38f21b/utils/__init__.py?v=a73bfcd411cb",
       "size": 134,
       "extension": ".py",
       "name": "__init__.py",
@@ -450,7 +450,7 @@
     },
     {
       "path": "utils/claude_client.py",
-      "raw_url": "https://raw.githubusercontent.com/rauschiccsk/uae-legal-agent/782af10d0dd5e00472d402b844e39db20cb431a5/utils/claude_client.py?v=782af10d0dd5",
+      "raw_url": "https://raw.githubusercontent.com/rauschiccsk/uae-legal-agent/a73bfcd411cb5f2a24ebea2cf877b144fb38f21b/utils/claude_client.py?v=a73bfcd411cb",
       "size": 5799,
       "extension": ".py",
       "name": "claude_client.py",
@@ -458,7 +458,7 @@
     },
     {
       "path": "utils/config.py",
-      "raw_url": "https://raw.githubusercontent.com/rauschiccsk/uae-legal-agent/782af10d0dd5e00472d402b844e39db20cb431a5/utils/config.py?v=782af10d0dd5",
+      "raw_url": "https://raw.githubusercontent.com/rauschiccsk/uae-legal-agent/a73bfcd411cb5f2a24ebea2cf877b144fb38f21b/utils/config.py?v=a73bfcd411cb",
       "size": 3613,
       "extension": ".py",
       "name": "config.py",
@@ -466,7 +466,7 @@
     },
     {
       "path": "utils/embeddings.py",
-      "raw_url": "https://raw.githubusercontent.com/rauschiccsk/uae-legal-agent/782af10d0dd5e00472d402b844e39db20cb431a5/utils/embeddings.py?v=782af10d0dd5",
+      "raw_url": "https://raw.githubusercontent.com/rauschiccsk/uae-legal-agent/a73bfcd411cb5f2a24ebea2cf877b144fb38f21b/utils/embeddings.py?v=a73bfcd411cb",
       "size": 7969,
       "extension": ".py",
       "name": "embeddings.py",
@@ -474,7 +474,7 @@
     },
     {
       "path": "utils/logger.py",
-      "raw_url": "https://raw.githubusercontent.com/rauschiccsk/uae-legal-agent/782af10d0dd5e00472d402b844e39db20cb431a5/utils/logger.py?v=782af10d0dd5",
+      "raw_url": "https://raw.githubusercontent.com/rauschiccsk/uae-legal-agent/a73bfcd411cb5f2a24ebea2cf877b144fb38f21b/utils/logger.py?v=a73bfcd411cb",
       "size": 4045,
       "extension": ".py",
       "name": "logger.py",
@@ -482,15 +482,15 @@
     },
     {
       "path": "utils/pdf_processor.py",
-      "raw_url": "https://raw.githubusercontent.com/rauschiccsk/uae-legal-agent/782af10d0dd5e00472d402b844e39db20cb431a5/utils/pdf_processor.py?v=782af10d0dd5",
-      "size": 8188,
+      "raw_url": "https://raw.githubusercontent.com/rauschiccsk/uae-legal-agent/a73bfcd411cb5f2a24ebea2cf877b144fb38f21b/utils/pdf_processor.py?v=a73bfcd411cb",
+      "size": 10633,
       "extension": ".py",
       "name": "pdf_processor.py",
       "category": "python_sources"
     },
     {
       "path": "utils/text_processing.py",
-      "raw_url": "https://raw.githubusercontent.com/rauschiccsk/uae-legal-agent/782af10d0dd5e00472d402b844e39db20cb431a5/utils/text_processing.py?v=782af10d0dd5",
+      "raw_url": "https://raw.githubusercontent.com/rauschiccsk/uae-legal-agent/a73bfcd411cb5f2a24ebea2cf877b144fb38f21b/utils/text_processing.py?v=a73bfcd411cb",
       "size": 3933,
       "extension": ".py",
       "name": "text_processing.py",
@@ -498,8 +498,8 @@
     },
     {
       "path": "utils/vector_store.py",
-      "raw_url": "https://raw.githubusercontent.com/rauschiccsk/uae-legal-agent/782af10d0dd5e00472d402b844e39db20cb431a5/utils/vector_store.py?v=782af10d0dd5",
-      "size": 5991,
+      "raw_url": "https://raw.githubusercontent.com/rauschiccsk/uae-legal-agent/a73bfcd411cb5f2a24ebea2cf877b144fb38f21b/utils/vector_store.py?v=a73bfcd411cb",
+      "size": 6293,
       "extension": ".py",
       "name": "vector_store.py",
       "category": "python_sources"

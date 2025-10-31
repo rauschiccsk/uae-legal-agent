@@ -249,3 +249,76 @@ def process_legal_pdf(pdf_path: str) -> dict:
         logger.warning(f"PDF spracovaný s chybami: {len(result['errors'])} errors")
     
     return result
+
+
+# ============================================================================
+# WRAPPER CLASS FOR DEPLOYMENT SCRIPT COMPATIBILITY
+# ============================================================================
+
+class PDFProcessor:
+    """
+    Wrapper class pre compatibility s deployment scriptom.
+    Používa funkcie definované vyššie.
+    """
+
+    def __init__(self):
+        """Initialize PDF processor."""
+        self.logger = get_logger(__name__)
+        self.logger.info("PDFProcessor initialized")
+
+    def process_pdf(self, pdf_path: str, chunk_size: int = 1000) -> list:
+        """
+        Process PDF a rozdeľ text na chunks pre embeddings.
+
+        Args:
+            pdf_path: Cesta k PDF súboru
+            chunk_size: Veľkosť chunk v znakoch (default 1000)
+
+        Returns:
+            List of dicts s keys: text, page, metadata
+        """
+        self.logger.info(f"Processing PDF: {pdf_path}")
+
+        try:
+            # Extract text from PDF
+            full_text = extract_text_from_pdf(pdf_path)
+
+            # Get metadata
+            metadata = extract_pdf_metadata(pdf_path)
+
+            # Split text into chunks
+            chunks = []
+            text_length = len(full_text)
+
+            for i in range(0, text_length, chunk_size):
+                chunk_text = full_text[i:i + chunk_size]
+
+                # Skip empty chunks
+                if not chunk_text.strip():
+                    continue
+
+                chunk = {
+                    'text': chunk_text.strip(),
+                    'page': i // chunk_size,  # Approximate page
+                    'metadata': {
+                        'source': Path(pdf_path).stem,
+                        'total_pages': metadata.get('page_count', 0),
+                        'chunk_index': len(chunks)
+                    }
+                }
+                chunks.append(chunk)
+
+            self.logger.info(f"PDF processed: {len(chunks)} chunks created")
+            return chunks
+
+        except Exception as e:
+            self.logger.error(f"Error processing PDF {pdf_path}: {e}")
+            raise
+
+    def extract_text(self, pdf_path: str) -> str:
+        """Simple text extraction wrapper."""
+        return extract_text_from_pdf(pdf_path)
+
+    def get_metadata(self, pdf_path: str) -> dict:
+        """Get PDF metadata wrapper."""
+        return extract_pdf_metadata(pdf_path)
