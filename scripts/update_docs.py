@@ -123,7 +123,10 @@ Slack (after setup):
 def create_final_session_note():
     """Create final session note with Dev Agent info"""
 
-    session_file = Path("docs/sessions/2025-10-25_final_session.md")
+    now = datetime.now()
+    date_str = now.strftime("%Y-%m-%d")
+    time_str = now.strftime("%H%M")
+    session_file = Path(f"docs/sessions/{date_str}_{time_str}_final_session.md")
 
     content = f"""# UAE Legal Agent - Final Session Summary
 **Date:** 2025-10-25  
