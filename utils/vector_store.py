@@ -1,4 +1,4 @@
-"""ChromaDB vector database management for semantic search."""
+"""ChromaDB vector database - EPHEMERAL with minimal metadata (no HNSW)."""
 
 import chromadb
 from chromadb.config import Settings
@@ -13,7 +13,7 @@ logger = get_logger(__name__)
 
 
 class VectorStore:
-    """ChromaDB vector store manager for document embeddings."""
+    """ChromaDB vector store - EPHEMERAL + NO HNSW."""
 
     def __init__(self, collection_name: str = None):
         """Initialize VectorStore with collection name."""
@@ -22,30 +22,26 @@ class VectorStore:
         self.collection = None
 
     def initialize_db(self) -> bool:
-        """Create or connect to ChromaDB database."""
+        """Create ephemeral ChromaDB without HNSW index."""
         try:
-            # Create persistence directory
-            persist_dir = Path(settings.CHROMA_PERSIST_DIRECTORY)
-            persist_dir.mkdir(parents=True, exist_ok=True)
+            logger.info("Initializing EPHEMERAL ChromaDB (in-memory, no HNSW)")
 
-            logger.info(f"Initializing ChromaDB at {persist_dir}")
-
-            # Initialize ChromaDB client with persistence
-            self.client = chromadb.PersistentClient(
-                path=str(persist_dir),
+            # Use ephemeral client
+            self.client = chromadb.EphemeralClient(
                 settings=Settings(
                     anonymized_telemetry=False,
                     allow_reset=True
                 )
             )
 
-            # Get or create collection
+            # Get or create collection with minimal metadata (no HNSW)
+            logger.info("Creating collection without HNSW index...")
             self.collection = self.client.get_or_create_collection(
                 name=self.collection_name,
-                metadata={"hnsw:space": "cosine"}
+                metadata={"description": "UAE legal documents"}
             )
 
-            logger.info(f"ChromaDB collection '{self.collection_name}' ready")
+            logger.info(f"EPHEMERAL collection '{self.collection_name}' ready (no HNSW)")
             return True
 
         except Exception as e:
@@ -65,12 +61,10 @@ class VectorStore:
                 logger.error("Collection not initialized")
                 return None
 
-            # Generate ID if not provided
             if not doc_id:
                 import uuid
                 doc_id = str(uuid.uuid4())
 
-            # Add document with embedding
             self.collection.add(
                 documents=[text],
                 embeddings=[embedding],
@@ -78,7 +72,7 @@ class VectorStore:
                 ids=[doc_id]
             )
 
-            logger.info(f"Document added with ID: {doc_id}")
+            logger.debug(f"Document added: {doc_id}")
             return doc_id
 
         except Exception as e:
@@ -86,8 +80,7 @@ class VectorStore:
             return None
 
     def search(self, query: str, top_k: int = 5, n_results: int = None) -> List[Dict]:
-        """Perform semantic search in collection."""
-        # Handle both parameter names for compatibility
+        """Perform semantic search."""
         n_results = n_results or top_k
 
         try:
@@ -95,90 +88,65 @@ class VectorStore:
                 logger.error("Collection not initialized")
                 return []
 
-            # Query collection
             results = self.collection.query(
                 query_texts=[query],
                 n_results=n_results
             )
 
-            # Format results
-            formatted_results = []
+            formatted = []
             if results and results['documents']:
                 for i in range(len(results['documents'][0])):
-                    formatted_results.append({
+                    formatted.append({
                         'id': results['ids'][0][i],
                         'text': results['documents'][0][i],
-                        'document': results['documents'][0][i],  # Alias for compatibility
+                        'document': results['documents'][0][i],
                         'metadata': results['metadatas'][0][i] if results['metadatas'] else {},
-                        'distance': results['distances'][0][i] if results.get('distances') else None,
-                        'embedding': results['embeddings'][0][i] if results.get('embeddings') else None
+                        'distance': results['distances'][0][i] if results.get('distances') else None
                     })
 
-            logger.info(f"Search returned {len(formatted_results)} results")
-            return formatted_results
+            return formatted
 
         except Exception as e:
             logger.error(f"Search failed: {e}")
             return []
 
-    def delete_document(self, doc_id: str) -> bool:
-        """Delete document from collection."""
-        try:
-            if not self.collection:
-                logger.error("Collection not initialized")
-                return False
-
-            self.collection.delete(ids=[doc_id])
-            logger.info(f"Document {doc_id} deleted")
-            return True
-
-        except Exception as e:
-            logger.error(f"Failed to delete document: {e}")
-            return False
-
     def get_collection_stats(self) -> Dict:
         """Get collection statistics."""
         try:
             if not self.collection:
-                logger.error("Collection not initialized")
                 return {}
 
             count = self.collection.count()
 
-            stats = {
+            return {
                 'collection_name': self.collection_name,
                 'document_count': count,
-                'persist_directory': settings.CHROMA_PERSIST_DIRECTORY
+                'mode': 'ephemeral (no HNSW)'
             }
-
-            logger.info(f"Collection stats: {count} documents")
-            return stats
 
         except Exception as e:
             logger.error(f"Failed to get stats: {e}")
             return {}
 
     def clear_collection(self) -> bool:
-        """Clear all documents from collection."""
+        """Clear all documents."""
         try:
             if not self.collection:
-                logger.error("Collection not initialized")
                 return False
 
-            # Delete collection and recreate
             self.client.delete_collection(name=self.collection_name)
             self.collection = self.client.create_collection(
                 name=self.collection_name,
-                metadata={"hnsw:space": "cosine"}
+                metadata={"description": "UAE legal documents"}
             )
 
-            logger.info(f"Collection '{self.collection_name}' cleared")
+            logger.info(f"Collection cleared")
             return True
 
         except Exception as e:
-            logger.error(f"Failed to clear collection: {e}")
+            logger.error(f"Failed to clear: {e}")
             return False
 
 
-# Backward compatibility alias
+# Backward compatibility
 VectorDB = VectorStore
